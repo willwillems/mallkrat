@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1 class="tester test-class hallo">{{ msg }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -18,7 +18,6 @@
       <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
       <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
       <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
       <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
     </ul>
     <h3>Ecosystem</h3>
@@ -56,5 +55,16 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.tester {
+  color: #6862F1;
+}
+
+.test-class {
+  font-style: italic;
+  font-size: 3.4rem;
+  font-weight: 400;
+  line-height: 5.5rem;
 }
 </style>
