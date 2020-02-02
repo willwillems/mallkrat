@@ -7,9 +7,9 @@
     </div>
     <div class="main">
       <h2 class="window-header" >PRAATBAK</h2>
-      <textarea style="width: 100%; height: 100%; color: inherit; background-color: inherit; padding: 12px; outline: none;" ></textarea>
+      <textarea style="width: 100%; height: 100%; color: inherit; background-color: inherit; padding: 12px; outline: none; text-transform: uppercase;" ></textarea>
     </div>
-    <div class="center"></div>
+    <div class="center"> UNDER DESTRUCTION </div>
     <div class="videos">
     </div>
     <div class="player">
@@ -160,6 +160,29 @@ h1, h2, h3, h4, h5, h6 {
 
 .center {
   grid-area: center;
+
+  // REMOVE
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 4rem;
+  animation: flash-text 1.5s step-end infinite;
+
+  @keyframes flash-text {
+    0% {
+      color: var(--txt-color);
+    }
+
+    50% {
+      color: var(--bg-color);
+    }
+
+    100% {
+      color: var(--txt-color);
+    }
+  }
 }
 
 .videos {
