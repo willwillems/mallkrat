@@ -24,7 +24,7 @@
       </div>
       <button @click="play" >PLAY</button>
       <button @click="mute" >MUTE</button>
-      <button>NEXT</button>
+      <button @click="fullscreen" >GAAN</button>
     </div>
     <div class="links"></div>
     <div class="um"></div>
@@ -56,6 +56,9 @@ export default {
     },
     mute () {
       this.$refs['video-player'].muted = !this.$refs['video-player'].muted
+    },
+    fullscreen () {
+      document.body.requestFullscreen()
     }
   }
 }
