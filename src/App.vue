@@ -118,13 +118,13 @@ h1, h2, h3, h4, h5, h6 {
 
   @media (max-width: 600px) {
     height: auto;
-    grid-template-rows: repeat(12, 80px);
+    grid-template-rows: repeat(10, 80px); // repeat(12, 80px);
     grid-template-columns: repeat(5, 1fr);
     grid-template-areas:
       "header header header header ."
       "header header header header ."
-      "videos videos center center center"
-      "videos videos center center center"
+      // "videos videos center center center"
+      // "videos videos center center center"
       "videos videos center center center"
       "player player player button button"
       "player player player button button"
@@ -260,11 +260,17 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     top: 0;
     left: 0;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 360px;
-    height: 80px;
+    height: 100%;
+
+    // QUICKFIX
+    @media (max-width: 600px) {
+      width: 40vw;
+    }
 
     &--invert {
       background-color: var(--bg-color);
