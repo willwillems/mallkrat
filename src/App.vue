@@ -108,10 +108,10 @@ html, body {
   font-weight: 800;
   height: 100%;
   box-sizing: border-box;
+}
 
-  & >  * {
-    box-sizing: border-box;
-  }
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 h1, h2, h3, h4, h5, h6 {
