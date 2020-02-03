@@ -79,7 +79,7 @@ export default {
         body: JSON.stringify({ messages })
       })
         .then(resp => resp.json())
-        .then(json => json
+        .then(json => json.data
           .messages
           .join('\n')
         )
