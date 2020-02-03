@@ -7,7 +7,7 @@
     </div>
     <div class="main">
       <h2 class="window-header" >PRAATBAK</h2>
-      <textarea style="width: 100%; height: 100%; color: inherit; background-color: inherit; padding: 12px; outline: none; text-transform: uppercase;" ></textarea>
+      <textarea v-model="praatbak" @keydown.enter="savePraatbak" style="width: 100%; height: 100%; color: inherit; background-color: inherit; padding: 12px; outline: none; text-transform: uppercase;" ></textarea>
     </div>
     <div class="center"> <h1> UNDER <span style="color: #f39a2c;">DESTRUCTION</span> </h1> </div>
     <div class="videos">
@@ -35,7 +35,8 @@ export default {
   data () {
     return {
       videoDuration: 0,
-      videoProgress: 0
+      videoProgress: 0,
+      praatbak: ''
     }
   },
   mounted () {
@@ -45,6 +46,7 @@ export default {
     this.$refs['video-player'].addEventListener('timeupdate', (event) => {
       this.videoProgress = Math.floor((event.srcElement.currentTime / event.srcElement.duration) * 100)
     })
+    this.fetchPraatbak()
   },
   methods: {
     play () {
@@ -55,6 +57,33 @@ export default {
     },
     fullscreen () {
       document.body.requestFullscreen()
+    },
+    fetchPraatbak () {
+      fetch('https://api.jsonbin.io/b/5e37f9cc50a7fe418c58c024/latest')
+        .then(resp => resp.json())
+        .then(json => json
+          .messages
+          .join('\n')
+        )
+        .then(txt => (this.praatbak = txt))
+    },
+    savePraatbak () {
+      const messages = this.praatbak.split('\n')
+      fetch('https://api.jsonbin.io/b/5e37f9cc50a7fe418c58c024', {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'versioning': false
+        },
+        body: JSON.stringify({ messages })
+      })
+        .then(resp => resp.json())
+        .then(json => json
+          .messages
+          .join('\n')
+        )
+        .then(txt => (this.praatbak = txt))
     }
   }
 }
