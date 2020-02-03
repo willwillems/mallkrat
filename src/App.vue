@@ -7,7 +7,7 @@
     </div>
     <div class="main">
       <h2 class="window-header" >PRAATBAK</h2>
-      <textarea v-model="praatbak" @keydown.enter="savePraatbak" style="width: 100%; height: 100%; color: inherit; background-color: inherit; padding: 12px; outline: none; text-transform: uppercase;" ></textarea>
+      <textarea v-model="praatbak" @keyup.enter="savePraatbak" style="width: 100%; height: 100%; color: inherit; background-color: inherit; padding: 12px; outline: none; text-transform: uppercase;" ></textarea>
     </div>
     <div class="center"> <h1> UNDER <span style="color: #f39a2c;">DESTRUCTION</span> </h1> </div>
     <div class="videos">
