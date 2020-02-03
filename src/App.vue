@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="header">
-      <marquee behavior="" direction=""><h1>HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN</h1></marquee>
+      <marquee behavior="" direction=""><h1>ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES</h1></marquee>
       <marquee behavior="" direction="" style="color: #f39a2c;"><h1>HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN</h1></marquee>
-      <marquee behavior="" direction=""><h1>HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN</h1></marquee>
+      <marquee behavior="" direction=""><h1>ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES</h1></marquee>
     </div>
     <div class="main">
       <h2 class="window-header" >PRAATBAK</h2>
