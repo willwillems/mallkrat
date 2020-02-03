@@ -2,14 +2,14 @@
   <div id="app">
     <div class="header">
       <marquee behavior="" direction=""><h1>HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN</h1></marquee>
-      <marquee behavior="" direction=""><h1>HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN</h1></marquee>
+      <marquee behavior="" direction="" style="color: #f39a2c;"><h1>HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN</h1></marquee>
       <marquee behavior="" direction=""><h1>HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN</h1></marquee>
     </div>
     <div class="main">
       <h2 class="window-header" >PRAATBAK</h2>
       <textarea style="width: 100%; height: 100%; color: inherit; background-color: inherit; padding: 12px; outline: none; text-transform: uppercase;" ></textarea>
     </div>
-    <div class="center"> UNDER DESTRUCTION </div>
+    <div class="center"> <h1> UNDER <span style="color: #f39a2c;">DESTRUCTION</span> </h1> </div>
     <div class="videos">
     </div>
     <div class="player">
@@ -27,10 +27,6 @@
       <button @click="fullscreen" >GAAN</button>
     </div>
     <div class="links"></div>
-    <div class="um"></div>
-    <div class="lm"></div>
-    <div class="rm"></div>
-    <div class="bm"></div>
   </div>
 </template>
 
@@ -71,6 +67,7 @@ export default {
   --txt-color: white;
   --border-color: var(--txt-color);
 }
+
 html, body {
   background-color: var(--bg-color);
   color: var(--txt-color);
@@ -94,25 +91,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #app {
-  min-height: 100%;
+  height: 100%;
   border: 1px solid var(--border-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: grid;
-  grid-template-rows: 1fr repeat(9, 80px) 1fr;
-  grid-template-columns: 1fr repeat(10, 120px) 1fr;
+  grid-template-rows: repeat(9, minmax(80px, 1fr));
+  grid-template-columns: repeat(10, minmax(120px, 1fr));
   grid-template-areas:
-    "lm um     um     um     um     um     um     um     um     um     um     rm"
-    "lm header header header header header header header header main   main   rm"
-    "lm header header header header header header header header main   main   rm"
-    "lm videos videos videos center center center center center main   main   rm"
-    "lm videos videos videos center center center center center main   main   rm"
-    "lm videos videos videos center center center center center main   main   rm"
-    "lm videos videos videos center center center center center main   main   rm"
-    "lm player player player center center center center center main   main   rm"
-    "lm player player player button button button links  links  links  links  rm"
-    "lm player player player button button button links  links  links  links  rm"
-    "lm bm     bm     bm     bm     bm     bm     bm     bm     bm     bm     rm";
+    "header header header header header header header header main   main "
+    "header header header header header header header header main   main "
+    "videos videos videos center center center center center main   main "
+    "videos videos videos center center center center center main   main "
+    "videos videos videos center center center center center main   main "
+    "videos videos videos center center center center center main   main "
+    "player player player center center center center center main   main "
+    "player player player button button button links  links  links  links"
+    "player player player button button button links  links  links  links";
 
   & > * {
     overflow: hidden;
@@ -170,20 +165,26 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   align-items: center;
 
-  font-size: 4rem;
-  animation: flash-text 1.5s step-end infinite;
+  h1 {
+    font-size: 4rem;
+    animation: flash-text 1.5s step-end infinite;
+
+    & > * {
+      animation: flash-text 1.5s step-end infinite;
+    }
+  }
 
   @keyframes flash-text {
     0% {
-      color: var(--txt-color);
+
     }
 
     50% {
-      color: var(--bg-color);
+      color: transparent;
     }
 
     100% {
-      color: var(--txt-color);
+
     }
   }
 }
@@ -199,7 +200,7 @@ h1, h2, h3, h4, h5, h6 {
     object-fit: cover;
     height: 100%;
     width: 100%;
-    filter: grayscale(1) brightness(1) contrast(1.6);
+    filter: grayscale(1) brightness(1.1) sepia(2) contrast(2.5) hue-rotate(-17deg);
   }
 }
 
@@ -230,31 +231,6 @@ h1, h2, h3, h4, h5, h6 {
   background-image: url("https://media.giphy.com/media/4m77PaZIsglUs/giphy.gif"); // "https://media.giphy.com/media/3oEdv67AXWYsTqrnbi/giphy.gif"
   background-position: 10%;
   filter: grayscale(1) brightness(.8) contrast(2);
-}
-
-.um, .lm, .rm, .bm {
-  min-height: 12px;
-  min-width: 12px;
-
-  @media (max-width: 600px) {
-    display: none;
-  }
-}
-
-.um {
-  grid-area: um;
-}
-
-.lm {
-  grid-area: lm;
-}
-
-.rm {
-  grid-area: rm;
-}
-
-.bm {
-  grid-area: bm;
 }
 
 .window-header {
