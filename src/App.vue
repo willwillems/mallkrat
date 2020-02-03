@@ -295,7 +295,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 360px;
+    width: 30vw;
     height: 100%;
 
     // QUICKFIX
