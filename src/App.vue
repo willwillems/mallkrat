@@ -162,6 +162,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #app {
   height: 100%;
+  min-width: 1200px;
   border: 1px solid var(--border-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -185,6 +186,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   @media (max-width: 600px) {
+    min-width: unset;
     height: auto;
     grid-template-rows: repeat(10, 80px); // repeat(12, 80px);
     grid-template-columns: repeat(5, 1fr);
