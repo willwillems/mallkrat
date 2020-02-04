@@ -10,7 +10,7 @@
   let headerAnimationIsRunning = true
   let constructionAnimationIsRunning = true
 
-  $: scrubberStyle = `width: ${videoProgress}%;`
+  $: scrubberStyle = `clip-path: inset(0 ${100 - videoProgress}% 0 0);`
   $: videoTimeFormated = (new Date(1000 * videoCurrentTime)).toISOString().substr(11, 8)
   $: headerAnimationPlayStateStyle = `animation-play-state: ${headerAnimationIsRunning ? 'running' : 'paused'};`
   $: constructionAnimationPlayStateStyle = `animation-play-state: ${constructionAnimationIsRunning ? 'running' : 'paused'};`
@@ -75,9 +75,7 @@
   <div class="button">
     <div class="play-status" on:click={scrub} >
       <div class="play-status__content">PREVIEW - { videoTimeFormated }</div>
-      <div class="play-status__progress" style={ scrubberStyle }>
-        <div class="play-status__content play-status__content--invert">PREVIEW - { videoTimeFormated }</div>
-      </div>
+      <div class="play-status__content play-status__content--invert" style={scrubberStyle}>PREVIEW - { videoTimeFormated }</div>
     </div>
     <button on:click={play} >PLAY</button>
     <button on:click={mute} >MUTE</button>
@@ -324,14 +322,6 @@
       background-color: var(--bg-color);
       filter: invert(1);
     }
-  }
-
-  &__progress {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    overflow: hidden;
   }
 }
 </style>
