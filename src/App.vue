@@ -16,10 +16,10 @@
       <video ref="video-player" autoplay muted loop src="ROOKHOK-PREVIEW.MP4"></video>
     </div>
     <div class="button">
-      <div class="play-status">
-        <div class="play-status__content">ROOKHOK - 00:0{{videoDuration}}</div>
+      <div class="play-status" @click="scrub" >
+        <div class="play-status__content">ROOKHOK - {{videoCurrentTimeString}}</div>
         <div class="play-status__progress" :style="`width: ${videoProgress}%;`">
-          <div class="play-status__content play-status__content--invert">ROOKHOK - 00:0{{videoDuration}}</div>
+          <div class="play-status__content play-status__content--invert">ROOKHOK - {{videoCurrentTimeString}}</div>
         </div>
       </div>
       <button @click="play" >PLAY</button>
@@ -36,6 +36,7 @@ export default {
     return {
       videoDuration: 0,
       videoProgress: 0,
+      videoCurrentTimeString: 0,
       praatbak: ''
     }
   },
@@ -44,6 +45,7 @@ export default {
       this.videoDuration = Math.floor(event.srcElement.duration)
     })
     this.$refs['video-player'].addEventListener('timeupdate', (event) => {
+      this.videoCurrentTimeString = new Date(1000 * event.srcElement.currentTime).toISOString().substr(11, 8)
       this.videoProgress = Math.floor((event.srcElement.currentTime / event.srcElement.duration) * 100)
     })
     this.fetchPraatbak()
@@ -54,6 +56,10 @@ export default {
     },
     mute () {
       this.$refs['video-player'].muted = !this.$refs['video-player'].muted
+    },
+    scrub (ev) {
+      const fraction = ev.layerX / ev.srcElement.scrollWidth
+      this.$refs['video-player'].currentTime = fraction * this.$refs['video-player'].duration
     },
     fullscreen () {
       document.body.requestFullscreen()
