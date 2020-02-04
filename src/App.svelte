@@ -7,9 +7,13 @@
   let videoElement
   let videoCurrentTime = ''
   let videoProgress = 0
+  let headerAnimationIsRunning = true
+  let constructionAnimationIsRunning = true
 
   $: scrubberStyle = `width: ${videoProgress}%;`
   $: videoTimeFormated = (new Date(1000 * videoCurrentTime)).toISOString().substr(11, 8)
+  $: headerAnimationPlayStateStyle = `animation-play-state: ${headerAnimationIsRunning ? 'running' : 'paused'};`
+  $: constructionAnimationPlayStateStyle = `animation-play-state: ${constructionAnimationIsRunning ? 'running' : 'paused'};`
 
   onMount(() => {
 		fetchPraatbakText()
@@ -28,6 +32,9 @@
       .then(txt => (praatbakTxt = txt))
   }
 
+  const toggleHeaderAnimation = () => { headerAnimationIsRunning = !headerAnimationIsRunning }
+  const toggleConstructionAnimation = () => { constructionAnimationIsRunning = !constructionAnimationIsRunning }
+
   const play = () => { videoElement.paused ? videoElement.play() : videoElement.pause() }
   const mute = () => { videoElement.muted = !videoElement.muted }
 	const scrub = (ev) => {
@@ -42,7 +49,7 @@
 
 <div id="app">
   <div class="header">
-		<div class="marquee">
+		<div class="marquee" on:click={toggleHeaderAnimation} style={headerAnimationPlayStateStyle}>
 			<h1>ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES</h1>
 			<h1 style="color: #f39a2c;">HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN</h1>
 			<h1>ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES</h1>
@@ -59,8 +66,8 @@
 			src="https://www.youtube.com/embed/U3JTO3Ve-Ag?autoplay=1&modestbranding=1&fs=0&disablekb=1&controls=1"
 			frameborder="0"></iframe>
 		</div>
-  <div class="videos">
-		<h1> UNDER <span style="color: #f39a2c;">DESTRUCTION</span> </h1>
+  <div class="videos" on:click={toggleConstructionAnimation}>
+		<h1 style={constructionAnimationPlayStateStyle}> UNDER <span style={'color: #f39a2c; ' + constructionAnimationPlayStateStyle}>DESTRUCTION</span> </h1>
   </div>
   <div class="player">
     <video ref="video-player" bind:this={videoElement} muted autoplay loop src="/video/ROOKHOK-PREVIEW.MP4"></video>
@@ -194,7 +201,7 @@
 
 	iframe {
 		min-width: 782px;
-		min-height: 440px;
+		min-height: 100%;
 		filter: brightness(1.1) sepia(2) contrast(2.5) hue-rotate(-17deg);
 	}
 }
