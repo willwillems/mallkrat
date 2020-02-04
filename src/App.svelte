@@ -67,9 +67,9 @@
   </div>
   <div class="button">
     <div class="play-status" on:click={scrub} >
-      <div class="play-status__content">ROOKHOK - { videoTimeFormated }</div>
+      <div class="play-status__content">PREVIEW - { videoTimeFormated }</div>
       <div class="play-status__progress" style={ scrubberStyle }>
-        <div class="play-status__content play-status__content--invert">ROOKHOK - { videoTimeFormated }</div>
+        <div class="play-status__content play-status__content--invert">PREVIEW - { videoTimeFormated }</div>
       </div>
     </div>
     <button on:click={play} >PLAY</button>
