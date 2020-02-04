@@ -28,7 +28,7 @@
       .then(txt => (praatbakTxt = txt))
   }
 
-  const play = () => { videoElement.paused = !videoElement.paused }
+  const play = () => { videoElement.paused ? videoElement.play() : videoElement.pause() }
   const mute = () => { videoElement.muted = !videoElement.muted }
 	const scrub = (ev) => {
     const fraction = ev.layerX / ev.srcElement.scrollWidth
