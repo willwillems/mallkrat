@@ -31,13 +31,31 @@
 </template>
 
 <script>
+
+const changeFavicon = link => {
+  let $favicon = document.querySelector('link[rel="icon"]')
+  // If a <link rel="icon"> element already exists,
+  // change its href to the given link.
+  if ($favicon !== null) {
+    $favicon.href = link
+  // Otherwise, create a new element and append it to <head>.
+  } else {
+    $favicon = document.createElement('link')
+    $favicon.rel = 'icon'
+    $favicon.href = link
+    document.head.appendChild($favicon)
+  }
+}
+
 export default {
   data () {
     return {
       videoDuration: 0,
       videoProgress: 0,
       videoCurrentTimeString: 0,
-      praatbak: ''
+      praatbak: '',
+      faviconColor: '#ffa500',
+      faviCounter: 0
     }
   },
   mounted () {
@@ -49,6 +67,7 @@ export default {
       this.videoProgress = Math.floor((event.srcElement.currentTime / event.srcElement.duration) * 100)
     })
     this.fetchPraatbak()
+    window.setInterval(this.metaMarquee, 938)
   },
   methods: {
     play () {
@@ -90,6 +109,22 @@ export default {
           .join('\n')
         )
         .then(txt => (this.praatbak = txt))
+    },
+    metaMarquee () {
+      document.title = `${document.title.slice(1)}${document.title.slice(0, 1)}`.replace('DG', 'D G').replace('DH', 'D H').replace('NA', 'N A').replace('SH', 'S H')
+      if ((this.faviCounter++) % 4) return
+      const canvas = document.createElement('canvas')
+      canvas.width = 120
+      canvas.height = 120
+      const ctx = canvas.getContext('2d')
+      var circle = new Path2D()
+      circle.moveTo(125, 35)
+      circle.arc(60, 60, 60, 0, 2 * Math.PI)
+      ctx.fillStyle = (this.faviconColor === '#ffa500') ? '#000000' : '#ffa500'
+      this.faviconColor = ctx.fillStyle
+      ctx.fill(circle)
+      const faviconImgUrl = canvas.toDataURL()
+      changeFavicon(faviconImgUrl)
     }
   }
 }
@@ -201,7 +236,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
 
   h1 {
-    font-size: 4rem;
+    font-size: 3rem;
     animation: flash-text 1.5s step-end infinite;
 
     & > * {
