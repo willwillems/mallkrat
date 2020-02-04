@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte'
 	
-	import { fetchPraatbak, savePraatbak, changeFavicon, metaMarquee } from './utils'
+	import { fetchPraatbakText, savePraatbakText, changeFavicon, metaMarquee } from './utils'
 
   let praatbakTxt = ''
   let videoElement
@@ -12,7 +12,7 @@
   $: videoTimeFormated = (new Date(1000 * videoCurrentTime)).toISOString().substr(11, 8)
 
   onMount(() => {
-		fetchPraatbak()
+		fetchPraatbakText()
 			.then(txt => (praatbakTxt = txt))
     
     videoElement.addEventListener('timeupdate', (event) => {
@@ -24,7 +24,7 @@
 	})
 
 	const handlePraatbakKeyup = (ev) => {
-    if (ev.key === 'Enter') return savePraatbak()
+    if (ev.key === 'Enter') return savePraatbakText(praatbakTxt)
       .then(txt => (praatbakTxt = txt))
   }
 

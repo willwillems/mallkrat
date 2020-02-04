@@ -1,13 +1,13 @@
 // PRAATBAK
-export const fetchPraatbak = () => fetch('https://api.jsonbin.io/b/5e37f9cc50a7fe418c58c024/latest')
+export const fetchPraatbakText = () => fetch('https://api.jsonbin.io/b/5e37f9cc50a7fe418c58c024/latest')
   .then(resp => resp.json())
   .then(json => json
     .messages
     .join('\n')
   )
 
-export const savePraatbak = () => {
-  const messages = praatbakTxt.split('\n')
+export const savePraatbakText = (txt) => {
+  const messages = txt.split('\n')
   return fetch('https://api.jsonbin.io/b/5e37f9cc50a7fe418c58c024', {
       method: 'PUT',
       headers: {
