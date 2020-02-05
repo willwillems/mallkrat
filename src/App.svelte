@@ -7,6 +7,9 @@
   let videoElement
   let videoCurrentTime = ''
   let videoProgress = 0
+  let videoIsPlaying = true
+  let videoIsMuted = true
+  let videoIsFulscreen = false
   let headerAnimationIsRunning = true
   let constructionAnimationIsRunning = true
 
@@ -14,6 +17,14 @@
   $: videoTimeFormated = (new Date(1000 * videoCurrentTime)).toISOString().substr(11, 8)
   $: headerAnimationPlayStateStyle = `animation-play-state: ${headerAnimationIsRunning ? 'running' : 'paused'};`
   $: constructionAnimationPlayStateStyle = `animation-play-state: ${constructionAnimationIsRunning ? 'running' : 'paused'};`
+  $: buttonPlayLabel = videoIsPlaying ? 'PAUSE' : 'PLAY'
+  $: buttonMuteLabel = videoIsMuted ? 'UNMUTE' : 'MUTE'
+  $: buttonGaanLabel = videoIsFulscreen ? 'WEG' : 'GAAN'
+
+  // WATCHERS
+  $: videoIsMuted     , videoElement && (videoElement.muted = videoIsMuted)
+  $: videoIsPlaying   , videoElement && (videoIsPlaying ? videoElement.play() : videoElement.pause())
+  $: videoIsFulscreen , (document.fullscreen !== videoIsFulscreen) && (videoIsFulscreen ? document.body.requestFullscreen() : document.exitFullscreen())
 
   onMount(() => {
 		fetchPraatbakText()
@@ -35,16 +46,13 @@
   const toggleHeaderAnimation = () => { headerAnimationIsRunning = !headerAnimationIsRunning }
   const toggleConstructionAnimation = () => { constructionAnimationIsRunning = !constructionAnimationIsRunning }
 
-  const play = () => { videoElement.paused ? videoElement.play() : videoElement.pause() }
-  const mute = () => { videoElement.muted = !videoElement.muted }
+  const play = () => { videoIsPlaying = !videoIsPlaying }
+  const mute = () => { videoIsMuted = !videoIsMuted }
 	const scrub = (ev) => {
     const fraction = ev.layerX / ev.srcElement.scrollWidth
     videoElement.currentTime = fraction * videoElement.duration
   }
-
-  const fullscreen = () => {
-    document.body.requestFullscreen()
-  }
+  const fullscreen = () => { videoIsFulscreen = !videoIsFulscreen }
 </script>
 
 <div id="app">
@@ -74,12 +82,12 @@
   </div>
   <div class="button">
     <div class="play-status" on:click={scrub} >
-      <div class="play-status__content">PREVIEW - { videoTimeFormated }</div>
-      <div class="play-status__content play-status__content--invert" style={scrubberStyle}>PREVIEW - { videoTimeFormated }</div>
+      <div class="play-status__content">PREVIEW - {videoTimeFormated}</div>
+      <div class="play-status__content play-status__content--invert" style={scrubberStyle}>PREVIEW - {videoTimeFormated}</div>
     </div>
-    <button on:click={play} >PLAY</button>
-    <button on:click={mute} >MUTE</button>
-    <button on:click={fullscreen} >GAAN</button>
+    <button on:click={play} >{buttonPlayLabel}</button>
+    <button on:click={mute} >{buttonMuteLabel}</button>
+    <button on:click={fullscreen} >{buttonGaanLabel}</button>
   </div>
   <div class="links"></div>
 </div>
