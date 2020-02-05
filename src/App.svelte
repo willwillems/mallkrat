@@ -282,7 +282,7 @@
   grid-area: links;
   background-image: url("https://media.giphy.com/media/4m77PaZIsglUs/giphy.gif"); // "https://media.giphy.com/media/3oEdv67AXWYsTqrnbi/giphy.gif"
   background-position: 10%;
-  filter: grayscale(1) brightness(.8) contrast(2);
+  filter: grayscale(1) brightness(.8) contrast(2) invert(1);
 }
 
 .window-header {
