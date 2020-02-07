@@ -10,8 +10,8 @@
   let videoIsPlaying = true
   let videoIsMuted = true
   let videoIsFulscreen = false
-  let headerAnimationIsRunning = true
-  let constructionAnimationIsRunning = true
+  let headerAnimationIsRunning = false
+  let constructionAnimationIsRunning = false
 
   $: scrubberStyle = `clip-path: inset(0 ${100 - videoProgress}% 0 0);`
   $: videoTimeFormated = (new Date(1000 * videoCurrentTime)).toISOString().substr(11, 8)
@@ -59,9 +59,9 @@
   <div class="header">
 		<div class="marquee" on:click={toggleHeaderAnimation} style={headerAnimationPlayStateStyle}>
 			<h1>ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES</h1>
-			<h1 style="color: #f39a2c;">HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN</h1>
+			<h1 style="color: var(--accent-color);">HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN</h1>
 			<h1>ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES</h1>
-			<h1 style="color: #f39a2c;">HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN</h1>
+			<h1 style="color: var(--accent-color);">HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN</h1>
 			<h1>ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES</h1>
 		</div>
   </div>
@@ -75,7 +75,7 @@
 			frameborder="0"></iframe>
 		</div>
   <div class="videos" on:click={toggleConstructionAnimation}>
-		<h1 style={constructionAnimationPlayStateStyle}> UNDER <span style={'color: #f39a2c; ' + constructionAnimationPlayStateStyle}>DESTRUCTION</span> </h1>
+		<h1 style={constructionAnimationPlayStateStyle}> UNDER <span style={'color: var(--accent-color); ' + constructionAnimationPlayStateStyle}>DESTRUCTION</span> </h1>
   </div>
   <div class="player">
     <video ref="video-player" bind:this={videoElement} muted autoplay loop src="/video/ROOKHOK-PREVIEW.MP4"></video>
@@ -169,7 +169,7 @@
 
   @keyframes weird-marquee {
     0% {
-			transform: translate(0%, 0%);
+			transform: translate(-5%, -5%);
     }
 
 		20% {
@@ -181,11 +181,11 @@
     }
 
 		80% {
-      transform: translate(-70%, -30%);
+      transform: translate(-20%, -25%);
     }
 
     100% {
-			transform: translate(0%, 0%);
+			transform: translate(-5%, -5%);
     }
   }
 }
@@ -208,7 +208,7 @@
 	iframe {
 		min-width: 782px;
 		min-height: 100%;
-		filter: brightness(1.1) sepia(2) contrast(2.5) hue-rotate(-17deg);
+		filter: brightness(1.1) grayscale(2) contrast(2.5) hue-rotate(-17deg);
 	}
 }
 
@@ -252,7 +252,7 @@
     object-fit: cover;
     height: 100%;
     width: 100%;
-    filter: grayscale(1) brightness(1.1) sepia(2) contrast(2.5) hue-rotate(-17deg);
+    filter: grayscale(1) brightness(1.1) contrast(2.5) hue-rotate(-17deg);
   }
 }
 
@@ -280,10 +280,13 @@
 
 .links {
   grid-area: links;
-  background-image: url("https://media.giphy.com/media/4m77PaZIsglUs/giphy.gif"); // "https://media.giphy.com/media/3oEdv67AXWYsTqrnbi/giphy.gif"
   background-position: 10%;
-  border-color: black; // to invert invert
-  filter: grayscale(1) brightness(.8) contrast(2) invert(1);
+  border-color: black !important; // to invert invert
+  filter: grayscale(1) brightness(0.9) contrast(10) invert(1);
+
+  &:hover {
+    background-image: url("https://media.giphy.com/media/xTiTngxFYnbEX7RdZu/giphy.gif"); // "https://media.giphy.com/media/3oEdv67AXWYsTqrnbi/giphy.gif"
+  }
 }
 
 .window-header {
@@ -328,8 +331,8 @@
     }
 
     &--invert {
-      background-color: var(--bg-color);
-      filter: invert(1);
+      background-color: var(--txt-color);
+      color: var(--bg-color);
     }
   }
 }
