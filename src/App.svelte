@@ -1,7 +1,18 @@
 <script>
 	import { onMount } from 'svelte'
 	
-	import { fetchPraatbakText, savePraatbakText, changeFavicon, metaMarquee } from './utils'
+  import { fetchPraatbakText, savePraatbakText, changeFavicon, metaMarquee } from './utils'
+  
+  const videos = [
+    {
+      title: 'WASHOK',
+      ytId: 'U3JTO3Ve-Ag'
+    },
+    {
+      title: 'ROOKHOK',
+      ytId: 'ggX-OPwie4A'
+    }
+  ]
 
   let praatbakTxt = ''
   let videoElement
@@ -11,15 +22,16 @@
   let videoIsMuted = true
   let videoIsFulscreen = false
   let headerAnimationIsRunning = false
-  let constructionAnimationIsRunning = false
+  let activeVideoIndex = 0
 
   $: scrubberStyle = `clip-path: inset(0 ${100 - videoProgress}% 0 0);`
   $: videoTimeFormated = (new Date(1000 * videoCurrentTime)).toISOString().substr(11, 8)
   $: headerAnimationPlayStateStyle = `animation-play-state: ${headerAnimationIsRunning ? 'running' : 'paused'};`
-  $: constructionAnimationPlayStateStyle = `animation-play-state: ${constructionAnimationIsRunning ? 'running' : 'paused'};`
   $: buttonPlayLabel = videoIsPlaying ? 'PAUSE' : 'PLAY'
   $: buttonMuteLabel = videoIsMuted ? 'UNMUTE' : 'MUTE'
   $: buttonGaanLabel = videoIsFulscreen ? 'WEG' : 'GAAN'
+  $: activeVideo = videos[activeVideoIndex]
+  $: youtubeIframeUrl = `https://www.youtube.com/embed/${activeVideo.ytId}?autoplay=1&modestbranding=1&fs=0&disablekb=1&controls=1`
 
   // WATCHERS
   $: videoIsMuted     , videoElement && (videoElement.muted = videoIsMuted)
@@ -44,7 +56,6 @@
   }
 
   const toggleHeaderAnimation = () => { headerAnimationIsRunning = !headerAnimationIsRunning }
-  const toggleConstructionAnimation = () => { constructionAnimationIsRunning = !constructionAnimationIsRunning }
 
   const play = () => { videoIsPlaying = !videoIsPlaying }
   const mute = () => { videoIsMuted = !videoIsMuted }
@@ -53,6 +64,8 @@
     videoElement.currentTime = fraction * videoElement.duration
   }
   const fullscreen = () => { videoIsFulscreen = !videoIsFulscreen }
+
+  const setActiveVideoByIndex = (i) => { activeVideoIndex = i }
 </script>
 
 <div id="app">
@@ -71,11 +84,16 @@
   </div>
   <div class="center">
 		<iframe title="player" id="ytplayer" type="text/html"
-			src="https://www.youtube.com/embed/U3JTO3Ve-Ag?autoplay=1&modestbranding=1&fs=0&disablekb=1&controls=1"
+			src="{youtubeIframeUrl}"
 			frameborder="0"></iframe>
 		</div>
-  <div class="videos" on:click={toggleConstructionAnimation}>
-		<h1 style={constructionAnimationPlayStateStyle}> UNDER <span style={'color: var(--accent-color); ' + constructionAnimationPlayStateStyle}>DESTRUCTION</span> </h1>
+  <div class="videos">
+    <h2 class="window-header" >VIDEOS</h2>
+    <ul>
+      {#each videos as video, index}
+        <li on:click="{() => setActiveVideoByIndex(index)}">{video.title}</li>
+      {/each}
+    </ul>
   </div>
   <div class="player">
     <video ref="video-player" bind:this={videoElement} muted autoplay loop src="/video/ROOKHOK-PREVIEW.MP4"></video>
@@ -208,39 +226,30 @@
 	iframe {
 		min-width: 782px;
 		min-height: 100%;
-		filter: brightness(1.1) grayscale(2) contrast(2.5) hue-rotate(-17deg);
+		// filter: brightness(1.1) grayscale(2) contrast(2.5) hue-rotate(-17deg);
 	}
 }
 
 .videos {
   grid-area: videos;
 
-	// REMOVE
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-	h1 {
-    font-size: 3rem;
-    animation: flash-text 1.5s step-end infinite;
-
-    & > * {
-      animation: flash-text 1.5s step-end infinite;
-    }
+	ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+    width: 100%;
   }
 
-  @keyframes flash-text {
-    0% {
+  li {
+    padding: 2rem;
+    text-align: center;
+    width: 100%;
+    border-bottom: 2px solid var(--border-color);
 
-    }
-
-    50% {
-      color: transparent;
-    }
-
-    100% {
-
+    &:hover {
+      background-color: var(--txt-color);
+      color: var(--bg-color);
     }
   }
 }
