@@ -142,18 +142,18 @@
     grid-template-rows: repeat(10, 80px); // repeat(12, 80px);
     grid-template-columns: repeat(5, 1fr);
     grid-template-areas:
-      "header header header header ."
-      "header header header header ."
-      // "videos videos center center center"
-      // "videos videos center center center"
-      "videos videos center center center"
+      "header header header videos videos"
+      "header header header videos videos"
+      "center center center center center"
+      "center center center center center"
+      "center center center center center"
       "player player player button button"
       "player player player button button"
       "player player player button button"
-      ".      main   main   main   main"
-      ".      main   main   main   main"
-      "links  links  links  links  ."
-      "links  links  links  links  .";
+      "main      main   main   main   main"
+      "main      main   main   main   main"
+      // "links  links  links  links  ."
+      // "links  links  links  links  .";
   }
 }
 
