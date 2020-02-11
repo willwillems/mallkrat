@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte'
 	
-  import { fetchPraatbakText, savePraatbakText, changeFavicon, metaMarquee } from './utils'
+  import { fetchPraatbakText, savePraatbakText, changeFavicon, metaMarquee, openFullscreen, closeFullscreen } from './utils'
   
   const videos = [
     {
@@ -36,7 +36,7 @@
   // WATCHERS
   $: videoIsMuted     , videoElement && (videoElement.muted = videoIsMuted)
   $: videoIsPlaying   , videoElement && (videoIsPlaying ? videoElement.play() : videoElement.pause())
-  $: videoIsFulscreen , (document.fullscreen !== videoIsFulscreen) && (videoIsFulscreen ? document.body.requestFullscreen() : document.exitFullscreen())
+  $: videoIsFulscreen , (document.fullscreen !== videoIsFulscreen) && (videoIsFulscreen ? openFullscreen() : closeFullscreen())
 
   onMount(() => {
 		fetchPraatbakText()
@@ -277,6 +277,7 @@
   button {
     color: inherit;
     background-color: inherit;
+    margin: 0;
     border: 1px solid var(--border-color);
     font-weight: inherit;
 

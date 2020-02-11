@@ -62,3 +62,30 @@ export const metaMarquee = () => {
   changeFavicon(faviconImgUrl)
   faviCounter++
 }
+
+
+/* View in fullscreen */
+export function openFullscreen() {
+  if (document.body.requestFullscreen) {
+    document.body.requestFullscreen();
+  } else if (document.body.mozRequestFullScreen) { /* Firefox */
+    document.body.mozRequestFullScreen();
+  } else if (document.body.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    document.body.webkitRequestFullscreen();
+  } else if (document.body.msRequestFullscreen) { /* IE/Edge */
+    document.body.msRequestFullscreen();
+  }
+}
+
+/* Close fullscreen */
+export function closeFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.mozCancelFullScreen) { /* Firefox */
+    document.mozCancelFullScreen();
+  } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { /* IE/Edge */
+    document.msExitFullscreen();
+  }
+}
