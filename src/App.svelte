@@ -28,7 +28,7 @@
   let headerAnimationIsRunning = false
   let activeVideoIndex = 0
 
-  $: scrubberStyle = `transform-origin: left; transform: scaleX(${videoProgress}%);`
+  $: scrubberStyle = `transform-origin: left; transform: scaleX(${videoProgress.toFixed(3)});`
   $: videoTimeFormated = (new Date(1000 * videoCurrentTime)).toISOString().substr(11, 8)
   $: headerAnimationPlayStateStyle = `animation-play-state: ${headerAnimationIsRunning ? 'running' : 'paused'};`
   $: buttonPlayLabel = videoIsPlaying ? 'PAUSE' : 'PLAY'
@@ -52,7 +52,7 @@
   
   const handleVideoProgress = (ev) => {
     videoCurrentTime = event.srcElement.currentTime
-    videoProgress = Math.floor((event.srcElement.currentTime / event.srcElement.duration) * 100)
+    videoProgress = (event.srcElement.currentTime / event.srcElement.duration)
   }
 
 	const handlePraatbakKeyup = (ev) => {
