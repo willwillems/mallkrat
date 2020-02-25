@@ -10,7 +10,11 @@
     },
     {
       title: 'ROOKHOK',
-      ytId: 'ggX-OPwie4A'
+      ytId: 'ggX-OPwie4A',
+      video: {
+        src: 'https://f000.backblazeb2.com/file/herreshaus/ROOKHOK.webm',
+        type: 'video/webm'
+      }
     }
   ]
 
@@ -19,7 +23,7 @@
   let videoCurrentTime = ''
   let videoProgress = 0
   let videoIsPlaying = true
-  let videoIsMuted = true
+  let videoIsMuted = false
   let videoIsFulscreen = false
   let headerAnimationIsRunning = false
   let activeVideoIndex = 0
@@ -41,14 +45,14 @@
   onMount(() => {
 		fetchPraatbakText()
 			.then(txt => (praatbakTxt = txt))
-    
-    videoElement.addEventListener('timeupdate', (event) => {
-      videoCurrentTime = event.srcElement.currentTime
-      videoProgress = Math.floor((event.srcElement.currentTime / event.srcElement.duration) * 100)
-    })
 
     window.setInterval(metaMarquee, 938)
-	})
+  })
+  
+  const handleVideoProgress = (ev) => {
+    videoCurrentTime = event.srcElement.currentTime
+    videoProgress = Math.floor((event.srcElement.currentTime / event.srcElement.duration) * 100)
+  }
 
 	const handlePraatbakKeyup = (ev) => {
     if (ev.key === 'Enter') return savePraatbakText(praatbakTxt)
@@ -83,10 +87,18 @@
     <textarea bind:value={praatbakTxt} on:keyup="{handlePraatbakKeyup}" style="width: 100%; height: 100%; color: inherit; background-color: inherit; padding: 12px; outline: none; text-transform: uppercase;" ></textarea>
   </div>
   <div class="center">
-		<iframe title="player" id="ytplayer" type="text/html"
-			src="{youtubeIframeUrl}"
-			frameborder="0"></iframe>
-		</div>
+    {#if activeVideo.video}
+      <video bind:this={videoElement} on:timeupdate={handleVideoProgress} preload="metadata" autoplay>
+        <source {...activeVideo.video}>
+        <!-- Fallback for browsers that do not support HTML5 video -->
+        <iframe type="text/html" src="{youtubeIframeUrl}" frameborder="0"></iframe>
+      </video>
+    {:else}
+      <iframe title="player" id="ytplayer" type="text/html"
+        src="{youtubeIframeUrl}"
+        frameborder="0"></iframe>
+    {/if}
+  </div>
   <div class="videos">
     <h2 class="window-header" >VIDEOS</h2>
     <ul>
@@ -96,12 +108,12 @@
     </ul>
   </div>
   <div class="player">
-    <video ref="video-player" bind:this={videoElement} muted autoplay loop src="/video/ROOKHOK-PREVIEW.MP4"></video>
+    <video ref="video-player" muted autoplay loop src="/video/ROOKHOK-PREVIEW.MP4"></video>
   </div>
   <div class="button">
     <div class="play-status" on:click={scrub} >
-      <div class="play-status__content">PREVIEW - {videoTimeFormated}</div>
-      <div class="play-status__content play-status__content--invert" style={scrubberStyle}>PREVIEW - {videoTimeFormated}</div>
+      <div class="play-status__content">{activeVideo.title} - {videoTimeFormated}</div>
+      <div class="play-status__content play-status__content--invert" style={scrubberStyle}>{activeVideo.title} - {videoTimeFormated}</div>
     </div>
     <button on:click={play} >{buttonPlayLabel}</button>
     <button on:click={mute} >{buttonMuteLabel}</button>
@@ -223,7 +235,7 @@
   justify-content: center;
   align-items: center;
 
-	iframe {
+	iframe, video {
 		min-width: 782px;
 		min-height: 100%;
 		// filter: brightness(1.1) grayscale(2) contrast(2.5) hue-rotate(-17deg);
