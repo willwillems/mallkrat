@@ -28,14 +28,15 @@
   let headerAnimationIsRunning = false
   let activeVideoIndex = 0
 
-  $: scrubberStyle = `clip-path: inset(0 ${100 - videoProgress}% 0 0);`
+  $: scrubberStyle = `transform-origin: left; transform: scaleX(${videoProgress}%);`
   $: videoTimeFormated = (new Date(1000 * videoCurrentTime)).toISOString().substr(11, 8)
   $: headerAnimationPlayStateStyle = `animation-play-state: ${headerAnimationIsRunning ? 'running' : 'paused'};`
   $: buttonPlayLabel = videoIsPlaying ? 'PAUSE' : 'PLAY'
   $: buttonMuteLabel = videoIsMuted ? 'UNMUTE' : 'MUTE'
   $: buttonGaanLabel = videoIsFulscreen ? 'WEG' : 'GAAN'
   $: activeVideo = videos[activeVideoIndex]
-  $: youtubeIframeUrl = `https://www.youtube.com/embed/${activeVideo.ytId}?autoplay=1&modestbranding=1&fs=0&disablekb=1&controls=1`
+  $: youtubeIframeUrl = `https://www.youtube.com/embed/${activeVideo.ytId}?modestbranding=1&fs=0&disablekb=1&controls=1`
+  $: autoplayYoutubeIframeUrl = youtubeIframeUrl + '&autoplay=1'
 
   // WATCHERS
   $: videoIsMuted     , videoElement && (videoElement.muted = videoIsMuted)
@@ -88,14 +89,14 @@
   </div>
   <div class="center">
     {#if activeVideo.video}
-      <video bind:this={videoElement} on:timeupdate={handleVideoProgress} preload="metadata" autoplay>
+      <video bind:this={videoElement} on:timeupdate={handleVideoProgress} on:click={play} preload="metadata" autoplay>
         <source {...activeVideo.video}>
         <!-- Fallback for browsers that do not support HTML5 video -->
-        <iframe type="text/html" src="{youtubeIframeUrl}" frameborder="0"></iframe>
+        <iframe title="fallback-player" type="text/html" src="{youtubeIframeUrl}" frameborder="0"></iframe>
       </video>
     {:else}
       <iframe title="player" id="ytplayer" type="text/html"
-        src="{youtubeIframeUrl}"
+        src="{autoplayYoutubeIframeUrl}"
         frameborder="0"></iframe>
     {/if}
   </div>
@@ -113,7 +114,7 @@
   <div class="button">
     <div class="play-status" on:click={scrub} >
       <div class="play-status__content">{activeVideo.title} - {videoTimeFormated}</div>
-      <div class="play-status__content play-status__content--invert" style={scrubberStyle}>{activeVideo.title} - {videoTimeFormated}</div>
+      <div class="play-status__content play-status__content--invert" style={scrubberStyle}></div>
     </div>
     <button on:click={play} >{buttonPlayLabel}</button>
     <button on:click={mute} >{buttonMuteLabel}</button>
@@ -126,6 +127,7 @@
 #app {
   height: 100%;
   min-width: 1200px;
+  max-height: 100%;
   border: 1px solid var(--border-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -151,19 +153,19 @@
   @media (max-width: 600px) {
     min-width: unset;
     height: auto;
-    grid-template-rows: repeat(10, 80px); // repeat(12, 80px);
+    grid-template-rows: repeat(10, minmax(80px, 1fr)); // repeat(13, 80px);
     grid-template-columns: repeat(5, 1fr);
     grid-template-areas:
-      "header header header videos videos"
-      "header header header videos videos"
+      "header header header header header"
+      "header header header header header"
       "center center center center center"
       "center center center center center"
       "center center center center center"
-      "player player player button button"
-      "player player player button button"
-      "player player player button button"
-      "main      main   main   main   main"
-      "main      main   main   main   main"
+      "videos videos button button button"
+      "videos videos button button button"
+      "videos videos button button button"
+      "main   main   main   main   main  "
+      "main   main   main   main   main  "
       // "links  links  links  links  ."
       // "links  links  links  links  .";
   }
@@ -269,6 +271,11 @@
 .player {
   grid-area: player;
 
+  // QUICK FIX
+  @media (max-width: 600px) {
+    display: none;
+  }
+
   video {
     object-fit: cover;
     height: 100%;
@@ -344,17 +351,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30vw;
+    width: 100%;
     height: 100%;
 
-    // QUICKFIX
-    @media (max-width: 600px) {
-      width: 40vw;
-    }
-
     &--invert {
+      mix-blend-mode: difference;
       background-color: var(--txt-color);
-      color: var(--bg-color);
     }
   }
 }
