@@ -55,7 +55,7 @@ export const metaMarquee = () => {
       let circle = new Path2D()
       circle.moveTo(125, 35)
       circle.arc(60, 60, rad, 0, 2 * Math.PI)
-      ctx.fillStyle = ((5 - (faviCounter % 5)) === i) ? '#000000' : '#ffa500'
+      ctx.fillStyle = ((5 - (faviCounter % 5)) === i) ? '#ffffff' : '#000000'
       ctx.fill(circle)
     })
   const faviconImgUrl = canvas.toDataURL()
