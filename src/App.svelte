@@ -2,6 +2,8 @@
 	import { onMount } from 'svelte'
 	
   import { fetchPraatbakText, savePraatbakText, changeFavicon, metaMarquee, openFullscreen, closeFullscreen } from './utils'
+
+  import AsciiPlayer from './AsciiPlayer.svelte'
   
   const videos = [
     {
@@ -12,7 +14,16 @@
       title: 'ROOKHOK',
       ytId: 'ggX-OPwie4A',
       video: {
-        src: 'https://f000.backblazeb2.com/file/herreshaus/ROOKHOK.webm',
+        src: '/media/ROOKHOK.webm',
+        type: 'video/webm'
+      }
+    },
+    {
+      title: '40401',
+      ytId: '',
+      ascii: true,
+      video: {
+        src: '/media/40401.webm',
         type: 'video/webm'
       }
     }
@@ -88,7 +99,9 @@
     <textarea bind:value={praatbakTxt} on:keyup="{handlePraatbakKeyup}" style="width: 100%; height: 100%; color: inherit; background-color: inherit; padding: 12px; outline: none; text-transform: uppercase;" ></textarea>
   </div>
   <div class="center">
-    {#if activeVideo.video}
+    {#if activeVideo.ascii}
+      <AsciiPlayer bind:videoPlayer={videoElement} on:timeupdate={handleVideoProgress} {...activeVideo.video}/>
+    {:else if activeVideo.video}
       <video bind:this={videoElement} on:timeupdate={handleVideoProgress} on:click={play} preload="metadata" autoplay>
         <source {...activeVideo.video}>
         <!-- Fallback for browsers that do not support HTML5 video -->
@@ -97,7 +110,8 @@
     {:else}
       <iframe title="player" id="ytplayer" type="text/html"
         src="{autoplayYoutubeIframeUrl}"
-        frameborder="0"></iframe>
+        frameborder="0">
+      </iframe>
     {/if}
   </div>
   <div class="videos">
