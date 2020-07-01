@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte'
 	
-  import { fetchPraatbakText, savePraatbakText, changeFavicon, metaMarquee, openFullscreen, closeFullscreen } from './utils'
+  import { fetchPraatbakText, savePraatbakText, changeFavicon, metaMarquee, openFullscreen, openCenterFullscreen, closeFullscreen } from './utils'
 
   import AsciiPlayer from './AsciiPlayer.svelte'
   
@@ -35,7 +35,8 @@
   let videoProgress = 0
   let videoIsPlaying = true
   let videoIsMuted = false
-  let videoIsFulscreen = false
+  let pageIsFullscreen = false
+  let centerIsFullscreen = false
   let headerAnimationIsRunning = false
   let activeVideoIndex = 0
 
@@ -44,15 +45,16 @@
   $: headerAnimationPlayStateStyle = `animation-play-state: ${headerAnimationIsRunning ? 'running' : 'paused'};`
   $: buttonPlayLabel = videoIsPlaying ? 'PAUSE' : 'PLAY'
   $: buttonMuteLabel = videoIsMuted ? 'UNMUTE' : 'MUTE'
-  $: buttonGaanLabel = videoIsFulscreen ? 'WEG' : 'GAAN'
+  $: buttonGaanLabel = pageIsFullscreen ? 'WEG' : 'GAAN'
   $: activeVideo = videos[activeVideoIndex]
   $: youtubeIframeUrl = `https://www.youtube.com/embed/${activeVideo.ytId}?modestbranding=1&fs=0&disablekb=1&controls=1`
   $: autoplayYoutubeIframeUrl = youtubeIframeUrl + '&autoplay=1'
 
   // WATCHERS
-  $: videoIsMuted     , videoElement && (videoElement.muted = videoIsMuted)
-  $: videoIsPlaying   , videoElement && (videoIsPlaying ? videoElement.play() : videoElement.pause())
-  $: videoIsFulscreen , (document.fullscreen !== videoIsFulscreen) && (videoIsFulscreen ? openFullscreen() : closeFullscreen())
+  $: videoIsMuted       , videoElement && (videoElement.muted = videoIsMuted)
+  $: videoIsPlaying     , videoElement && (videoIsPlaying ? videoElement.play() : videoElement.pause())
+  $: pageIsFullscreen   , (document.fullscreen !== pageIsFullscreen) && (pageIsFullscreen ? openFullscreen() : closeFullscreen())
+  $: centerIsFullscreen  , (document.fullscreen !== centerIsFullscreen) && (centerIsFullscreen ? openCenterFullscreen() : closeFullscreen())
 
   onMount(() => {
 		fetchPraatbakText()
@@ -80,7 +82,8 @@
     videoProgress = fraction // adjust visually alreadyso no waiting for buffer
     videoElement.currentTime = fraction * videoElement.duration
   }
-  const fullscreen = () => { videoIsFulscreen = !videoIsFulscreen }
+  const fullscreen = () => { pageIsFullscreen = !pageIsFullscreen }
+  const centerFullscreen = () => { centerIsFullscreen = !centerIsFullscreen }
 
   const setActiveVideoByIndex = (i) => { activeVideoIndex = i }
 </script>
@@ -99,9 +102,9 @@
     <h2 class="window-header" >PRAATBAK</h2>
     <textarea bind:value={praatbakTxt} on:keyup="{handlePraatbakKeyup}" style="width: 100%; height: 100%; color: inherit; background-color: inherit; padding: 12px; outline: none; text-transform: uppercase;" ></textarea>
   </div>
-  <div class="center">
+  <div class="center" id="center">
     {#if activeVideo.ascii}
-      <AsciiPlayer bind:videoPlayer={videoElement} on:timeupdate={handleVideoProgress} {...activeVideo.video}/>
+      <AsciiPlayer bind:videoPlayer={videoElement} on:timeupdate={handleVideoProgress} {...activeVideo.video} noBar={!centerIsFullscreen}/>
     {:else if activeVideo.video}
       <video bind:this={videoElement} on:timeupdate={handleVideoProgress} on:click={play} preload="metadata" autoplay>
         <source {...activeVideo.video}>
@@ -135,7 +138,7 @@
     <button on:click={mute} >{buttonMuteLabel}</button>
     <button on:click={fullscreen} >{buttonGaanLabel}</button>
   </div>
-  <div class="links"></div>
+  <div class="links" on:click={centerFullscreen}></div>
 </div>
 
 <style lang="scss">

@@ -4,12 +4,16 @@ import { Player } from 'asciiplayer'
 
 export let src
 export let videoPlayer
+export let noBar
 
 let asciiPlayer = null
 
 const dispatch = createEventDispatcher();
 
-const player = Player({ noBar: true })
+const player = Player({ noBar })
+
+// WATCHERS
+$: noBar       , player.noBar = noBar
 
 onMount(() => {
   player.init(asciiPlayer)

@@ -89,3 +89,17 @@ export function closeFullscreen() {
     document.msExitFullscreen();
   }
 }
+
+/* View center in fullscreen */
+export function openCenterFullscreen() {
+  const center = document.getElementById('center')
+  if (center.requestFullscreen) {
+    center.requestFullscreen();
+  } else if (center.mozRequestFullScreen) { /* Firefox */
+    center.mozRequestFullScreen();
+  } else if (center.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    center.webkitRequestFullscreen();
+  } else if (center.msRequestFullscreen) { /* IE/Edge */
+    center.msRequestFullscreen();
+  }
+}
