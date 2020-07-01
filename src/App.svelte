@@ -77,6 +77,7 @@
   const mute = () => { videoIsMuted = !videoIsMuted }
 	const scrub = (ev) => {
     const fraction = ev.layerX / ev.srcElement.scrollWidth
+    videoProgress = fraction // adjust visually alreadyso no waiting for buffer
     videoElement.currentTime = fraction * videoElement.duration
   }
   const fullscreen = () => { videoIsFulscreen = !videoIsFulscreen }

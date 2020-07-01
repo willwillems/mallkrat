@@ -9,7 +9,7 @@ let asciiPlayer = null
 
 const dispatch = createEventDispatcher();
 
-const player = Player()
+const player = Player({ noBar: true })
 
 onMount(() => {
   player.init(asciiPlayer)
