@@ -10,16 +10,17 @@ let asciiPlayer = null
 
 const dispatch = createEventDispatcher();
 
-const player = Player({ noBar })
+const player = Player({ noBar: true, preserveRatio: 'cover' })
 
 // WATCHERS
-$: noBar       , player.noBar = noBar
+// $: noBar       , player.noBar = noBar
 
 onMount(() => {
   player.init(asciiPlayer)
   player.pixels = ['.', ',', ':', ';', '+', '*', '?', '%', 'S', '#', '@'].reverse()
-  player.setWidth(Math.floor(asciiPlayer.parentElement.offsetWidth / 6))
-  player.setHeight(Math.floor(asciiPlayer.parentElement.offsetHeight / 7.6))
+  player.pixels = ['🍂', '🧱', '🧶', '🦀', '🦐', '😡', '☢️', '😳', '😷', '👩‍🦳']
+  player.setWidth(Math.floor(asciiPlayer.parentElement.offsetWidth / 11.2))
+  player.setHeight(Math.floor(asciiPlayer.parentElement.offsetHeight / 9.5))
   player.setSourceMedia(src)
 
   videoPlayer = player.video
@@ -27,8 +28,8 @@ onMount(() => {
   videoPlayer.addEventListener('timeupdate', (ev) => dispatch('timeupdate', { ev }) )
 
   window.addEventListener('resize', () => {
-    player.setWidth(Math.floor(asciiPlayer.parentElement.offsetWidth / 6))
-    player.setHeight(Math.floor(asciiPlayer.parentElement.offsetHeight / 7.6))
+    player.setWidth(Math.floor(asciiPlayer.parentElement.offsetWidth / 11.2))
+    player.setHeight(Math.floor(asciiPlayer.parentElement.offsetHeight / 9.5  ))
   })
 })
 
