@@ -19,6 +19,7 @@ onMount(() => {
   player.init(asciiPlayer)
   player.pixels = ['.', ',', ':', ';', '+', '*', '?', '%', 'S', '#', '@'].reverse()
   player.pixels = ['🍂', '🧱', '🧶', '🦀', '🦐', '😡', '☢️', '😳', '😷', '👩‍🦳']
+  player.pixels = ['🏴', '🏴‍☠️', '☠️']
   player.setWidth(Math.floor(asciiPlayer.parentElement.offsetWidth / 11.2))
   player.setHeight(Math.floor(asciiPlayer.parentElement.offsetHeight / 9.5))
   player.setSourceMedia(src)
