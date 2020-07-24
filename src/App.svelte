@@ -26,6 +26,14 @@
         src: '/media/40401.webm',
         type: 'video/webm'
       }
+    },
+    {
+      title: 'GRAAFBAK',
+      ytId: '3kbe6ww50UY',
+      video: {
+        src: '/media/GRAAFBAK.webm',
+        type: 'video/webm'
+      }
     }
   ]
 
