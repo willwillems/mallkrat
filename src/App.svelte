@@ -171,6 +171,8 @@
     background-repeat: no-repeat;
 
     animation: move-in 1s ease-in-out;
+    animation-delay: .2s;
+    animation-fill-mode: backwards;
 
     @media (max-width: 600px) {
       background-size: 200%;
