@@ -97,6 +97,7 @@
   const setActiveVideoByIndex = (i) => { activeVideoIndex = i }
 </script>
 <div id="app">
+  <h1 class="apply-section__title">Join Us</h1>
   <button id="apply-button">
     <svg width="450px" height="141px" viewBox="0 0 450 141" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -179,6 +180,15 @@
   @media (max-width: 600px) {
     background-size: 720px, 220%, cover;
   }
+}
+
+.apply-section__title {
+  font-size: 4.5rem;
+  text-align: center;
+  text-transform: uppercase;
+
+  margin: 0;
+  padding-top: 8vh;
 }
 
 #apply-button {
