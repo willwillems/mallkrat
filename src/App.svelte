@@ -206,7 +206,7 @@
   color: white;
 
   &:hover {
-    color: rgb(221, 46, 32);
+    color: #de2f21;
 
     &::after {
       transform: translateY(0px);
