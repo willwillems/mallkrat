@@ -7,6 +7,18 @@
   
   const videos = [
     {
+      title: 'CONCRETE CAVE',
+      ytId: 'wRby4-MxPNk'
+    },
+    {
+      title: 'GRAAFBAK',
+      ytId: '3kbe6ww50UY',
+      video: {
+        src: '/media/GRAAFBAK.webm',
+        type: 'video/webm'
+      }
+    },
+    {
       title: 'WASHOK',
       ytId: 'U3JTO3Ve-Ag'
     },
@@ -18,23 +30,6 @@
         type: 'video/webm'
       }
     },
-    {
-      title: '40401',
-      ytId: '',
-      ascii: true,
-      video: {
-        src: '/media/40401.webm',
-        type: 'video/webm'
-      }
-    },
-    {
-      title: 'GRAAFBAK',
-      ytId: '3kbe6ww50UY',
-      video: {
-        src: '/media/GRAAFBAK.webm',
-        type: 'video/webm'
-      }
-    }
   ]
 
   let praatbakTxt = ''
