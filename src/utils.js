@@ -66,14 +66,15 @@ export const metaMarquee = () => {
 
 /* View in fullscreen */
 export function openFullscreen() {
-  if (document.body.requestFullscreen) {
-    document.body.requestFullscreen();
-  } else if (document.body.mozRequestFullScreen) { /* Firefox */
-    document.body.mozRequestFullScreen();
-  } else if (document.body.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-    document.body.webkitRequestFullscreen();
-  } else if (document.body.msRequestFullscreen) { /* IE/Edge */
-    document.body.msRequestFullscreen();
+  const player = document.getElementById('video-player')
+  if (player.requestFullscreen) {
+    player.requestFullscreen();
+  } else if (player.mozRequestFullScreen) { /* Firefox */
+    player.mozRequestFullScreen();
+  } else if (player.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+    player.webkitRequestFullscreen();
+  } else if (player.msRequestFullscreen) { /* IE/Edge */
+    player.msRequestFullscreen();
   }
 }
 
@@ -90,16 +91,3 @@ export function closeFullscreen() {
   }
 }
 
-/* View center in fullscreen */
-export function openCenterFullscreen() {
-  const center = document.getElementById('center')
-  if (center.requestFullscreen) {
-    center.requestFullscreen();
-  } else if (center.mozRequestFullScreen) { /* Firefox */
-    center.mozRequestFullScreen();
-  } else if (center.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-    center.webkitRequestFullscreen();
-  } else if (center.msRequestFullscreen) { /* IE/Edge */
-    center.msRequestFullscreen();
-  }
-}
