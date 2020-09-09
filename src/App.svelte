@@ -8,7 +8,7 @@
       title: 'CONCRETE CAVE',
       ytId: 'wRby4-MxPNk',
       video: {
-        src: '/video/CONCRETECAVE.webm',
+        src: '/media/CONCRETECAVE.webm',
         type: 'video/webm'
       }
     },
