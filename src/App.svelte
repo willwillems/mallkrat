@@ -47,13 +47,14 @@
   let pageIsFullscreen = false
   let headerAnimationIsRunning = false
   let activeVideoIndex = 0
+  let applyButtonHover = false
 
   // const applyStarSection = tweened(100, {
 	// 	duration: 400,
 	// 	easing: cubicOut
 	// });
 
-  $: scrubberStyle = `transform-origin: left; transform: scaleX(${videoProgress.toFixed(3)});`
+  $: scrubberStyle = `width: ${videoProgress.toFixed(3)*100}%;`// `transform-origin: left; transform: scaleX(${videoProgress.toFixed(3)});`
   $: videoTimeFormated = (new Date(1000 * videoCurrentTime)).toISOString().substr(11, 8)
   $: headerAnimationPlayStateStyle = `animation-play-state: ${headerAnimationIsRunning ? 'running' : 'paused'};`
   $: buttonPlayLabel = videoIsPlaying ? 'PAUSE' : 'PLAY'
@@ -88,6 +89,7 @@
   const play = () => { videoIsPlaying = !videoIsPlaying }
   const mute = () => { videoIsMuted = !videoIsMuted }
 	const scrub = (ev) => {
+    console.log(ev)
     const fraction = ev.layerX / ev.srcElement.scrollWidth
     videoProgress = fraction // adjust visually alreadyso no waiting for buffer
     videoElement.currentTime = fraction * videoElement.duration
@@ -95,6 +97,8 @@
   const fullscreen = () => { pageIsFullscreen = !pageIsFullscreen }
 
   const setActiveVideoByIndex = (i) => { activeVideoIndex = i }
+
+  const setApplyButtonHover = (b) => () => {applyButtonHover = b}
 </script>
 <div id="app">
   <header class="header">
@@ -103,17 +107,29 @@
     <img src="/img/header_diamond.png" alt="diamond" class="header__diamond">
   </header>
   <section class="section video-section">
-    <div class="video-section__player">
+    <div class="video-player">
       <video id="video-player" bind:this={videoElement} on:timeupdate={handleVideoProgress} on:click={play} preload="metadata" autoplay>
         <source {...activeVideo.video}>
         <!-- Fallback for browsers that do not support HTML5 video -->
         <iframe title="fallback-player" type="text/html" src="{youtubeIframeUrl}" frameborder="0"></iframe>
       </video>
+      <div class="video-player__scrubber" >
+        <div class="video-player__scrubber__bg" on:click={scrub}></div>
+        <div class="video-player__scrubber__progress" style={scrubberStyle}></div>
+      </div>
     </div>
     <div class="video-section__remote">
-    <button on:click={play} class="remote-button">PLAY</button>
-    <button on:click={mute} class="remote-button">MUTE</button>
-    <button on:click={fullscreen} class="remote-button">GAAN</button>
+    <button on:click={play} class="remote-button">
+      <img class="remote-button__img" src="/img/play-button.svg" alt="play">
+    </button>
+    <button on:click={play} class="remote-button">
+      <img class="remote-button__img" src="/img/pause-button.svg" alt="pause">
+    </button>
+    <button on:click={mute} class="remote-button">
+      <img class="remote-button__img" src="/img/mute-button.svg" alt="mute">
+    </button>
+    <button on:click={fullscreen} class="remote-button">
+      <img class="remote-button__img" src="/img/full-screen-button.svg" alt="full screen"></button>
     </div>
   </section>
   <section class="carousel-section">
@@ -125,7 +141,8 @@
   </section>
   <section class="section apply-section">
     <h1 class="apply-section__title">Join Us</h1>
-    <button id="apply-button">
+    <div class="apply-eye" class:apply-eye--active={applyButtonHover}></div>
+    <button id="apply-button" on:mouseenter="{setApplyButtonHover(true)}" on:mouseleave="{setApplyButtonHover(false)}">
       <svg width="450px" height="141px" viewBox="0 0 450 141" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="Desktop-HD-Copy" transform="translate(-496.000000, -334.000000)">
@@ -220,9 +237,15 @@
     height: 20rem;
     left: 0;
     bottom: 0;
+
+    @media (max-width: 600px) { /*TEMP*/
+      display: none;
+    }
   }
 
   &__title {
+    object-fit: contain;
+    max-width: 100%;
     height: 6rem;
     margin: 1rem;
   }
@@ -231,6 +254,10 @@
     position: absolute;
     height: 8rem;
     right: 0;
+
+    @media (max-width: 600px) { /*TEMP*/
+      display: none;
+    }
   }
 }
 
@@ -247,34 +274,9 @@
   background-position: calc(100% - 1rem) calc(100% - 1rem + 4px);
   background-repeat: no-repeat;
 
-  &__player {
-    position: relative;
-    margin: 1rem;
-
-    flex-grow: 1;
-
-    border: 4px solid var(--border-color);
-    background-color: var(--bg-color);
-
-    video {
-      width: 100%;
-      height: 100%;
-    }
-
-    &::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 4rem;
-
-      left: -4px;
-      bottom: -4rem;
-
-      background-image: url('/img/video_bottom-fluid.png');
-      background-size: auto 100%;
-      background-position: top left;
-      background-repeat: no-repeat;
-    }
+  @media (max-width: 600px) {
+    flex-direction: column;
+    padding-bottom: 0;
   }
 
   &__remote {
@@ -288,15 +290,21 @@
     background-color: var(--bg-color);
 
     margin: 1rem;
-    padding: 1rem;
+    padding: .75rem;
     margin-bottom: 6rem + 1rem; /* for after img */
 
     min-width: 8rem;
+
+    @media (max-width: 600px) {
+      flex-direction: row;
+      margin-bottom: 4rem; /* eye now slightly overlaps gallery */
+    }
 
     &::after {
       content: "";
       position: absolute;
       width: 100%;
+      max-width: 11rem;
       height: 6rem;
 
       left: 0;
@@ -306,6 +314,82 @@
       background-size: 100%;
       background-position: center;
       background-repeat: no-repeat;
+
+      @media (max-width: 600px) {
+        left: calc(50% - 5.5rem);
+      }
+    }
+  }
+}
+
+.video-player {
+  position: relative;
+  margin: 1rem;
+
+  flex-grow: 1;
+
+  border: 4px solid var(--border-color);
+  background-color: var(--bg-color);
+
+  video {
+    width: 100%;
+    height: 100%;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4rem;
+
+    left: -4px;
+    bottom: -4rem;
+
+    background-image: url('/img/video_bottom-fluid.png');
+    background-size: auto 100%;
+    background-position: top left;
+    background-repeat: no-repeat;
+  }
+
+  &__scrubber {
+    position: absolute;
+    bottom: 0;
+
+    width: 100%;
+    height: calc(2.75rem + 4px);
+    padding: 1rem;
+
+    border-top: 4px solid var(--border-color);
+
+    &__progress {
+      height: .75rem;
+      background-color: #FFFF00;
+
+      position: relative;
+
+      pointer-events: none;
+
+      &::after {
+        content: "";
+        height: 2rem;
+        width: 1rem;
+
+        position: absolute;
+        right: -0.5rem;
+        top: -0.625rem;
+
+        background-image: url('/img/scrubber.svg');
+        background-size: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+
+    &__bg {
+      position: absolute;
+      height: .75rem;
+      background-color: #2f2f2f;
+      width: calc(100% - 2rem);
     }
   }
 }
@@ -324,20 +408,25 @@
   background-position: bottom center;
   background-repeat: no-repeat;
 
-  padding: 2.5rem 2rem;
-  margin: 1rem;
-  padding-bottom: 3rem;
+  padding: 1rem .4rem;
+  margin: .75rem;
+  margin-top: 0rem;
+  padding-bottom: 1.4rem;
 
   &:active {
     background-image: url('/img/video_remote_button-bg--pressed.png');
-    padding-bottom: 2.5rem;
-    padding-top: 3rem;
+    padding-bottom: .8rem;
+    padding-top: 1.6rem;
     outline: none;
     border: unset;
   }
 
   &:focus {
     outline: none;
+  }
+
+  &__img {
+    height: 3rem;
   }
 }
 
@@ -354,6 +443,10 @@
   background-size: 100%;
   background-position: top;
   background-repeat: no-repeat;
+
+  // @media (max-width: 600px) {
+  //   grid-template-columns: repeat(4, 1fr);
+  // }
 
   & > * {
     width: 100%;
@@ -415,11 +508,18 @@
   height: 68rem;
   padding-top: 20rem;
 
-  background-image: url('/img/apply_header.png'), url('/img/disolve.png'), url('/img/join-main.png'), url('/img/stars-bg.png');
-  background-size: 980px, 1440px, 100%, cover;
+  background-image: url('/img/apply_header.png'), url('/img/disolve.png'), url('/img/apply_main.png'), url('/img/stars-bg.png');
+  background-size: 980px, 1440px, 1440px, cover;
   background-position: top, bottom, bottom, top;
   background-repeat: no-repeat;
 
+  @media (max-width: 1200px) {
+    margin: 0;
+  }
+
+  @media (max-width: 800px) {
+    background-size: 700px, 1440px, 1440px, cover;
+  }
 
   &::before {
     content: "";
@@ -441,11 +541,30 @@
       background-size: 200%;
     }
   }
-  
-  @media (max-width: 600px) {
-    background-size: 720px, 220%, cover;
-  }
 
+}
+
+.apply-eye {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+
+  left: calc(50% - 40px);
+  bottom: 425px;
+
+  background-image: url('/img/eye.png');
+  background-size: 100%;
+
+  z-index: -10;
+  
+  transition: all .3s ease-out;
+  transform: translateY(140px);
+  opacity: .3;
+
+  &--active {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 }
 
 .apply-section__title {
@@ -459,9 +578,10 @@
 
 #apply-button {
   position: absolute;
-  width: 36vw;
-  left: calc(50% - 18vw);
-  bottom: 8.2vw;
+  width: 465px;
+  left: 50%;
+  bottom: 117px;
+  transform: translateX(-50%);
 
   background-color: transparent;
   outline: none;
@@ -471,35 +591,6 @@
 
   &:hover {
     color: var(--accent-color);
-
-    &::after {
-      transform: translateY(0px);
-      opacity: 1;
-    }
-  }
-
-  @media (max-width: 600px) {
-    width: 70vw;
-    left: calc(50% - 35vw);
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    width: 80px;
-    height: 80px;
-
-    left: calc(50% - 40px);
-    bottom: 37vh;
-
-    background-image: url('/img/eye.png');
-    background-size: 100%;
-
-    z-index: -1;
-    
-    transition: all .3s ease-out;
-    transform: translateY(140px);
-    opacity: .3;
   }
 
   svg {
