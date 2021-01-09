@@ -17,3 +17,23 @@
   from = "/disko"
   to = "https://www.youtube.com/playlist?list=PLF_bDq6WnMa4CGEo83vueCSZA3jFe_WJL"
   status = 302
+[[redirects]]
+  from = "/after-hours"
+  to = "https://www.youtube.com/playlist?list=PLF_bDq6WnMa7zk_pqWLi1SvHIRfhVGFye"
+  status = 302
+[[redirects]]
+  from = "/amber"
+  to = "https://www.youtube.com/playlist?list=PLF_bDq6WnMa4VzRJQwOpVkIMDujcuDqwS"
+  status = 302
+[[redirects]]
+  from = "/jackin"
+  to = "https://www.youtube.com/playlist?list=PLF_bDq6WnMa5Et8yUxtPcKzWaqXjRHE5s"
+  status = 302
+[[redirects]]
+  from = "/neu-techno"
+  to = "https://www.youtube.com/playlist?list=PLF_bDq6WnMa6ODqGFZxuDDEb5WaRl8x-W"
+  status = 302
+[[redirects]]
+  from = "/other"
+  to = "https://www.youtube.com/playlist?list=PLF_bDq6WnMa5cMfcXXEXn3KmaAgm4qFUi"
+  status = 302
