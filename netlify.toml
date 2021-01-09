@@ -5,3 +5,15 @@
   status = 200
   force = true # COMMENT: ensure that we always redirect
   headers = {X-From = "Netlify"}
+[[redirects]]
+  from = "/herres-light"
+  to = "https://www.youtube.com/playlist?list=PLF_bDq6WnMa4r3MuHzRb6wn2HxFauRp-3"
+  status = 302
+[[redirects]]
+  from = "/herres"
+  to = "https://www.youtube.com/playlist?list=PLF_bDq6WnMa7LIwr2sIFqKUJzTGrLlZsr"
+  status = 302
+[[redirects]]
+  from = "/disko"
+  to = "https://www.youtube.com/playlist?list=PLF_bDq6WnMa4CGEo83vueCSZA3jFe_WJL"
+  status = 302
