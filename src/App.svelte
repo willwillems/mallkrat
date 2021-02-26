@@ -7,16 +7,16 @@
   
   const videos = [
     {
-      title: 'CONCRETE CAVE',
-      ytId: 'wRby4-MxPNk'
-    },
-    {
       title: 'GRAAFBAK',
       ytId: '3kbe6ww50UY',
       video: {
         src: '/media/GRAAFBAK.webm',
         type: 'video/webm'
       }
+    },
+    {
+      title: 'CONCRETE CAVE',
+      ytId: 'wRby4-MxPNk'
     },
     {
       title: 'WASHOK',
@@ -67,8 +67,8 @@
   })
   
   const handleVideoProgress = (ev) => {
-    videoCurrentTime = event.srcElement.currentTime
-    videoProgress = (event.srcElement.currentTime / event.srcElement.duration)
+    videoCurrentTime = ev.srcElement.currentTime
+    videoProgress = (ev.srcElement.currentTime / ev.srcElement.duration)
   }
 
 	const handlePraatbakKeyup = (ev) => {
@@ -267,6 +267,8 @@
 
 .videos {
   grid-area: videos;
+  display: flex;
+  flex-direction: column;
 
 	ul {
     padding: 0;
@@ -274,6 +276,7 @@
     list-style: none;
     text-decoration: none;
     width: 100%;
+    overflow-y: scroll;
   }
 
   li {
