@@ -93,13 +93,25 @@
 
 <div id="app">
   <div class="header">
-		<div class="marquee" on:click={toggleHeaderAnimation} style={headerAnimationPlayStateStyle}>
+    {@html `
+    <textarea>
+
+    ██╗  ██╗███████╗██████╗ ██████╗ ███████╗███████╗    ██╗  ██╗ █████╗ ██╗   ██╗███████╗    ██╗  ██╗███████╗██████╗ ██████╗ ███████╗███████╗    ██╗  ██╗ █████╗ ██╗   ██╗███████╗    
+    ██║  ██║██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝    ██║  ██║██╔══██╗██║   ██║██╔════╝    ██║  ██║██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝    ██║  ██║██╔══██╗██║   ██║██╔════╝    
+    ███████║█████╗  ██████╔╝██████╔╝█████╗  ███████╗    ███████║███████║██║   ██║███████╗    ███████║█████╗  ██████╔╝██████╔╝█████╗  ███████╗    ███████║███████║██║   ██║███████╗    
+    ██╔══██║██╔══╝  ██╔══██╗██╔══██╗██╔══╝  ╚════██║    ██╔══██║██╔══██║██║   ██║╚════██║    ██╔══██║██╔══╝  ██╔══██╗██╔══██╗██╔══╝  ╚════██║    ██╔══██║██╔══██║██║   ██║╚════██║    
+    ██║  ██║███████╗██║  ██║██║  ██║███████╗███████║    ██║  ██║██║  ██║╚██████╔╝███████║    ██║  ██║███████╗██║  ██║██║  ██║███████╗███████║    ██║  ██║██║  ██║╚██████╔╝███████║    
+    ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝    ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝    ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝    ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝    
+    
+    </textarea>
+    `}
+		<!-- <div class="marquee" on:click={toggleHeaderAnimation} style={headerAnimationPlayStateStyle}>
 			<h1>ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES</h1>
 			<h1 style="color: var(--accent-color);">HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN</h1>
 			<h1>ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES</h1>
 			<h1 style="color: var(--accent-color);">HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN HARD GAAN</h1>
 			<h1>ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES ALWAYS HERRES</h1>
-		</div>
+		</div> -->
   </div>
   <div class="main">
     <h2 class="window-header" >PRAATBAK</h2>
@@ -222,6 +234,18 @@
 		}
 	}
 
+  :global(textarea) {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    color: white;
+    outline: none;
+    white-space: pre;
+    font-family: monospace;
+    font-weight: 900;
+    line-height: 1.5;
+  }
+
   @keyframes weird-marquee {
     0% {
 			transform: translate(-5%, -5%);
@@ -340,6 +364,8 @@
   display: flex;
   align-items: end;
 
+  font-size: 1.3rem;
+
   background-position: 10%;
   border-color: black !important; // to invert invert
   filter: grayscale(1) brightness(0.9) contrast(10) invert(1);
@@ -354,7 +380,7 @@
 }
 
 .link {
-  padding: .8em 1.5em;
+  padding: .8em 1.4em;
   margin: 1em;
 
   border: 2px solid var(--border-color);
