@@ -141,7 +141,9 @@
     <button on:click={mute} >{buttonMuteLabel}</button>
     <button on:click={fullscreen} >{buttonGaanLabel}</button>
   </div>
-  <div class="links" on:click={centerFullscreen}></div>
+  <div class="links">
+    <a href="https://lookbook.herres.haus" class="link">Lookbook</a>
+  </div>
 </div>
 
 <style lang="scss">
@@ -187,8 +189,8 @@
       "videos videos button button button"
       "main   main   main   main   main  "
       "main   main   main   main   main  "
-      // "links  links  links  links  ."
-      // "links  links  links  links  .";
+      "links  links  links  links  links "
+      "links  links  links  links  links ";
   }
 }
 
@@ -333,12 +335,38 @@
 
 .links {
   grid-area: links;
+  position: relative;
+
+  display: flex;
+  align-items: end;
+
   background-position: 10%;
   border-color: black !important; // to invert invert
   filter: grayscale(1) brightness(0.9) contrast(10) invert(1);
 
+  & > * {
+    filter: invert(1);
+  }
+
   &:hover {
     background-image: url("https://media.giphy.com/media/xTiTngxFYnbEX7RdZu/giphy.gif"); // "https://media.giphy.com/media/3oEdv67AXWYsTqrnbi/giphy.gif"
+  }
+}
+
+.link {
+  padding: .8em 1.5em;
+  margin: 1em;
+
+  border: 2px solid var(--border-color);
+  color: white;
+
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 900;
+
+  &:hover {
+    background-color: var(--border-color);
+    color: black;
   }
 }
 
