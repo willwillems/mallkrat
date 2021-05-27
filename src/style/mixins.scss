@@ -1,0 +1,16 @@
+@mixin box-w-2 {
+   box-shadow:0 0 0 2px var(--border-color);
+   overflow: hidden;
+}
+
+@mixin full-cover {
+   height: 100%;
+   width: 100%;
+   object-fit: cover;
+}
+
+@mixin full-contain {
+   height: 100%;
+   width: 100%;
+   object-fit: contain;
+}

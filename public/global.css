@@ -13,8 +13,9 @@ html, body {
   font-size: 16px;
   font-family: 'Arial', Helvetica, Arial, sans-serif;
   letter-spacing: 1px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   font-weight: 800;
-  height: 100%;
   box-sizing: border-box;
 }
 
@@ -26,3 +27,13 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Arial Black', Arial, sans-serif;
   text-align: center;
 }
+
+button {
+  background: inherit;
+  border: none;
+  cursor: pointer;
+}
+
+/* button:active {
+
+} */
