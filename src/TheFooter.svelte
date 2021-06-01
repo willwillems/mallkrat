@@ -1,9 +1,12 @@
 <script>
+import AppFluidProgress from "./components/FluidProgress.svelte"
+import { progress } from "./TheVideoPlayer/state"
+
 
 </script>
 
 <footer id="footer">
-
+  <AppFluidProgress progress={$progress} />
 </footer>
 
 <style lang="scss">

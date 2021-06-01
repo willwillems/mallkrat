@@ -1,6 +1,6 @@
 <script>
   import { toggle } from '../player'
-  import { playing } from '../store'
+  import { playing } from '../state'
 </script>
 
 <button on:click={toggle} class="{$$props.class}" style="padding: 2rem;">

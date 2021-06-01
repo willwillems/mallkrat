@@ -1,5 +1,5 @@
 import { get } from 'svelte/store'
-import { setPlayState, playing } from "./store"
+import { setPlayState, setDuration, setCurrentTime, playing } from "./state"
 
 export let instance
 
@@ -36,6 +36,13 @@ export function init (player) {
       return
     }
   })
+
+  window.setInterval(async () => {
+    const currentTime = await instance.getCurrentTime()
+    const duration = await instance.getDuration() // MOVE TO ON LOAD
+    setCurrentTime(currentTime)
+    setDuration(duration)
+  }, 250)
 }
 
 export function play () {
