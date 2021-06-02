@@ -1,8 +1,11 @@
 <script>
-  import YouTube from '../components/Youtube.svelte'
+  import AppYouTube from '../components/Youtube.svelte'
+  import AppVolumeBar from '../components/VolumeBar.svelte'
+
   import ThePlayButton from './components/ThePlayButton.svelte'
 
-  import { init } from './player'
+  import { init, setVolume } from './player'
+  import { volume } from "./state"
 
   let player
 
@@ -46,16 +49,22 @@
     },
   ]
 
+  function handleUpdateVolume (e) {
+    setVolume(e.detail)
+  }
+
 </script>
 
 <div id="video">
-  <YouTube
+  <AppYouTube
     videoId={videos[1].ytId}
     options={options}
     class="video-player"
     bind:player
   />
-  <div class="volume-bar"></div>
+  <div class="volume-bar">
+    <AppVolumeBar class="volume-bar__controls" volume={$volume} on:update:volume={handleUpdateVolume} />
+  </div>
   <div class="player-controls">
     <ThePlayButton class="player-controls__play-button"/>
   </div>
@@ -91,6 +100,13 @@
 .volume-bar {
   @include box-w-2;
   grid-area: volume;
+
+  padding: 4px;
+
+  &__controls {
+    height: 100%;
+    width: 100%;
+  }
 }
 
 .player-controls {

@@ -1,5 +1,5 @@
 import { get } from 'svelte/store'
-import { setPlayState, setDuration, setCurrentTime, playing } from "./state"
+import { setPlayState, setDuration, setCurrentTime, updateVolume, playing, duration } from "./state"
 
 export let instance
 
@@ -8,7 +8,7 @@ export function init (player) {
 
   if (!instance) return
     
-  instance.on('stateChange', ({data}) => {
+  instance.on('stateChange', async ({data}) => {
     // unstarted 
     if (data === -1) {
       return
@@ -33,14 +33,20 @@ export function init (player) {
     }
     // video cued
     if (data === 5) {
+      const volume = await instance.getVolume()
+      setVolume(volume)
+
+      const duration = await instance.getDuration()
+      setDuration(duration)
+
       return
     }
   })
 
   window.setInterval(async () => {
     const currentTime = await instance.getCurrentTime()
-    const duration = await instance.getDuration() // MOVE TO ON LOAD
     setCurrentTime(currentTime)
+    const duration = await instance.getDuration() // MOVE TO ON LOAD
     setDuration(duration)
   }, 250)
 }
@@ -66,4 +72,17 @@ export function toggle () {
   return play()
 }
 
+export async function setVolume (val) {
+  if (!instance) return
+  const volume = Math.round(Math.max(0, Math.min((val * 100), 100)))
+  await instance.setVolume(volume)
+
+  updateVolume(volume / 100)
+}
+
+export function setProgress (targetProgress) {
+  if (!instance) return
+  const targetTime = targetProgress * get(duration)
+  instance.seekTo(targetTime, true)
+}
 
