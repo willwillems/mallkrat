@@ -1,9 +1,11 @@
 <script>
-  import TheHeader from './TheHeader.svelte'
-  import TheFooter from './TheFooter.svelte'
-  import TheNextUp from './TheNextUp.svelte'
-  import TheSubContent from './TheSubContent/TheSubContent.svelte'
-  import TheVideoPlayer from './TheVideoPlayer/TheVideoPlayer.svelte'
+  import "normalize.css"
+
+  import TheHeader from '../TheHeader.svelte'
+  import TheFooter from '../TheFooter.svelte'
+  import TheNextUp from '../TheNextUp.svelte'
+  import TheSubContent from '../TheSubContent/TheSubContent.svelte'
+  import TheVideoPlayer from '../TheVideoPlayer/TheVideoPlayer.svelte'
   
 </script>
 
