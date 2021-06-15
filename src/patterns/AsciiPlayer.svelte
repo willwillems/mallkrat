@@ -39,7 +39,7 @@ onMount(() => {
 
 <div bind:this={asciiPlayer} class="ascii-player"></div>
 
-<style lang="scss">
+<style lang="postcss">
 .ascii-player {
   color: white;
   display: inline-block;

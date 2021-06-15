@@ -13,8 +13,8 @@
   <TheJoinButton class="join-button"/>
 </div>
 
-<style lang="scss">
-@import '../src/style/mixins.scss';
+<style lang="postcss">
+@import '../../style/mixins.pcss';
 
 #sub {
   @include box-w-2;

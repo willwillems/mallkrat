@@ -17,11 +17,11 @@
   <TheFooter />
 </div>
 
-<style lang="scss">
-@import '../src/style/mixins.scss';
+<style lang="postcss">
+@import '../style/mixins.pcss';
 
 #app {
-  @include box-w-2;
+  @mixin box-w-2;
   margin: 18px 24px;
   max-height: calc(100vh - 36px);
   display: grid;

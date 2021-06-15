@@ -12,8 +12,8 @@ function handleProgresUpdate (e) {
   <AppFluidProgress class="footer-progress-bar" progress={$progress} progressing={$playing} on:update:progress={handleProgresUpdate}/>
 </footer>
 
-<style lang="scss">
-@import '../src/style/mixins.scss';
+<style lang="postcss">
+@import '../style/mixins.pcss';
 
 #footer {
   @include box-w-2;

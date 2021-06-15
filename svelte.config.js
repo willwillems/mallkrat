@@ -1,24 +1,28 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* jshint esversion: 9 */
 
-const sveltePreprocess = require('svelte-preprocess');
+import sveltePreprocess from 'svelte-preprocess'
+import adapter from '@sveltejs/adapter-static'
 
 const config = {
 	preprocess: [
 		sveltePreprocess({
 			defaults: {
-				style: 'scss',
+				style: 'postcss',
 			},
-			scss: {
-				prependData: `@import 'src/styles/variables/index.scss';\n`,
-				outputStyle: 'compressed',
-			},
+			postcss: true, // cfeate config file
 		}),
 	],
 	kit: {
 		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte'
+		target: '#svelte',
+		adapter: adapter({
+			// default options are shown
+			pages: 'build',
+			assets: 'build',
+			fallback: null
+		})
 	}
 };
 
-module.exports =  config;
+export default config;

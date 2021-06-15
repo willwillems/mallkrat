@@ -9,8 +9,8 @@
   </div>
 </header>
 
-<style lang="scss">
-@import '../src/style/mixins.scss';
+<style lang="postcss">
+@import '../style/mixins.pcss';
 
 #header {
   @include box-w-2;

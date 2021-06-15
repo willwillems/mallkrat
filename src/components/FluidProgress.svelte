@@ -32,7 +32,7 @@
    {/each}
 </div>
 
-<style lang="scss">
+<style lang="postcss">
 .bar {
    display: grid;
    grid-auto-flow: column;
@@ -42,7 +42,7 @@
 }
 
 .box {
-  // width: 1rem;
+  /* width: 1rem; */
   line-height: 2rem;
   position: relative;
   overflow: hidden;

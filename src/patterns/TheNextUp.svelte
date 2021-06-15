@@ -17,8 +17,8 @@ $: secondNextVideoUrl = $videoList && $videoList[1] && $videoList[1].thumbnails.
   </div>
 </div>
 
-<style lang="scss">
-@import '../src/style/mixins.scss';
+<style lang="postcss">
+@import '../style/mixins.pcss';
 
 #next {
   @include box-w-2;

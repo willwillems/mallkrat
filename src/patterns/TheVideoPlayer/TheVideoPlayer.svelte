@@ -73,8 +73,8 @@
   </div>
 </div>
 
-<style lang="scss" global>
-@import '../src/style/mixins.scss';
+<style lang="postcss" global>
+@import '../../style/mixins.pcss';
 
 #video {
   @include box-w-2;
