@@ -1,5 +1,5 @@
 <script>
-import { videoList } from "./store/videos"
+import { videoList } from "../store/videos"
 
 $: firstNextVideoUrl  = $videoList && $videoList[0] && $videoList[0].thumbnails.maxres.url
 $: secondNextVideoUrl = $videoList && $videoList[1] && $videoList[1].thumbnails.maxres.url

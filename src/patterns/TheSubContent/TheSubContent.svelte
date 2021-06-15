@@ -1,7 +1,7 @@
 <script>
   import TheJoinButton from "./components/TheJoinButton.svelte"
   // https://media.giphy.com/media/h76r04w8cYic7T2BHG/giphy.mp4
-  import { getVideos } from "../service/videos"
+  import { getVideos } from "../../service/videos"
 
   getVideos()
 </script>

@@ -1,11 +1,11 @@
 <script>
-  import AppYouTube from '../components/Youtube.svelte'
-  import AppVolumeBar from '../components/VolumeBar.svelte'
+  import AppYouTube from '../../components/Youtube.svelte'
+  import AppVolumeBar from '../../components/VolumeBar.svelte'
 
   import ThePlayButton from './components/ThePlayButton.svelte'
 
   import { init, setVolume } from './player'
-  import { volume } from "./state"
+  import { volume, playing } from "./state"
 
   let player
 
@@ -62,6 +62,9 @@
     class="video-player"
     bind:player
   />
+  {#if !$playing}
+  <img src="" alt="" class="video-player__overlay">
+  {/if}
   <div class="volume-bar">
     <AppVolumeBar class="volume-bar__controls" volume={$volume} on:update:volume={handleUpdateVolume} />
   </div>
@@ -92,6 +95,13 @@
 
   iframe {
     object-fit: cover;
+    height: 100%;
+    width: 100%;
+  }
+
+  &__overlay {
+    grid-area: player;
+    object-fit: contain;
     height: 100%;
     width: 100%;
   }

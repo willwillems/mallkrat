@@ -1,5 +1,5 @@
 <script>
-import AppFluidProgress from "./components/FluidProgress.svelte"
+import AppFluidProgress from "../components/FluidProgress.svelte"
 import { progress, playing } from "./TheVideoPlayer/state"
 import { setProgress } from "./TheVideoPlayer/player"
 
