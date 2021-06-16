@@ -7,3 +7,7 @@ export function receiveVideos (d) {
    if (!d.items) return // ?
    videoList.set(d.items.map(i => i.snippet))
 }
+
+export function setActiveVideoId (id) {
+   activeVideoId.set(id)
+}

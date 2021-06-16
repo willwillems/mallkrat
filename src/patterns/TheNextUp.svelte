@@ -1,17 +1,20 @@
 <script>
-import { videoList } from "../store/videos"
+import { getVideoId, getVideoImg } from "$lib/ytdata"
+import { videoList, setActiveVideoId } from "../store/videos"
 
-$: firstNextVideoUrl  = $videoList && $videoList[0] && $videoList[0].thumbnails.maxres.url
-$: secondNextVideoUrl = $videoList && $videoList[1] && $videoList[1].thumbnails.maxres.url
+$: firstNextVideoId   = $videoList && $videoList[0] && getVideoId($videoList[0])
+$: firstNextVideoUrl  = $videoList && $videoList[0] && getVideoImg($videoList[0])
+$: secondNextVideoId  = $videoList && $videoList[0] && getVideoId($videoList[0])
+$: secondNextVideoUrl = $videoList && $videoList[0] && getVideoImg($videoList[0])
 
 </script>
 
 <div id="next">
-  <div class="next-video next-video--1">
+  <div class="next-video next-video--1" on:click={setActiveVideoId(firstNextVideoId)}>
     <img class="next-video__img" src="{firstNextVideoUrl}" alt="thumbnail of next video 1" />
     <div class="next-video__overlay"></div>
   </div>
-  <div class="next-video next-video--2">
+  <div class="next-video next-video--2" on:click={setActiveVideoId(secondNextVideoId)}>
     <img class="next-video__img" src="{secondNextVideoUrl}" alt="thumbnail of next video 2" />
     <div class="next-video__overlay"></div>
   </div>
