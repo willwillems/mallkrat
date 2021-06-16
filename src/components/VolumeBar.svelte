@@ -5,7 +5,7 @@
 
    const dispatch = createEventDispatcher();
 
-   $: barStyle = `height: ${ (1 - volume) * 100}%;`
+   $: barStyle = `height: ${ (volume) * 100}%;`
 
 
 	function handleClick(e) {
@@ -29,12 +29,14 @@
 
 <style lang="postcss">
 .bar {
+  position: relative;
   cursor: pointer;
 }
 
 .bar-fill {
+  position: absolute;
+  bottom: 0;
   width: 100%;
-  position: relative;
   overflow: hidden;
   background-color: var(--border-color);
   pointer-events: none;
