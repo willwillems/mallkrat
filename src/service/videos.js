@@ -1,11 +1,9 @@
-import { getPlaylistItems } from "../utils/ytapi"
+// import dotenv from 'dotenv'
+// import { prerendering } from '$app/env'
+// import { getPlaylistItems } from "../lib/ytapi
 import { receiveVideos } from "../store/videos"
 
-const uploadsPlaylistId = "UUIfE0xC0WPJmxOaRl70Zheg"
-
-const getOwnPlaylistItems = getPlaylistItems(null) // GET FROM LOCAL
-
 export async function getVideos () {
-   const data = await getOwnPlaylistItems(uploadsPlaylistId)
+   const { data } = await fetch("http://localhost:3000/api/videos.json").then(r => r.json())
    return receiveVideos(data)
 }
