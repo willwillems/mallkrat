@@ -4,8 +4,10 @@
 
   import ThePlayButton from './components/ThePlayButton.svelte'
 
-  import { init, setVolume } from './player'
-  import { volume, playing } from "./state"
+  import { activeVideoId } from '../../store/videos'
+
+  import { init, setVolume, toggle } from './player'
+  import { volume, hasPlayed } from './state'
 
   let player
 
@@ -18,37 +20,6 @@
     }
   }
 
-  const videos = [
-    {
-      title: 'GRAAFBAK',
-      ytId: '3kbe6ww50UY',
-      video: {
-        src: '/media/GRAAFBAK.webm',
-        type: 'video/webm'
-      }
-    },
-    {
-      title: 'BUNKER #001',
-      ytId: 'eMKqoYe8meY'
-    },
-    {
-      title: 'CONCRETE CAVE',
-      ytId: 'wRby4-MxPNk'
-    },
-    {
-      title: 'WASHOK',
-      ytId: 'U3JTO3Ve-Ag'
-    },
-    {
-      title: 'ROOKHOK',
-      ytId: 'ggX-OPwie4A',
-      video: {
-        src: '/media/ROOKHOK.webm',
-        type: 'video/webm'
-      }
-    },
-  ]
-
   function handleUpdateVolume (e) {
     setVolume(e.detail)
   }
@@ -57,13 +28,13 @@
 
 <div id="video">
   <AppYouTube
-    videoId={videos[1].ytId}
+    videoId={$activeVideoId}
     options={options}
     class="video-player"
     bind:player
   />
-  {#if !$playing}
-  <img src="" alt="" class="video-player__overlay">
+  {#if !$hasPlayed}
+  <img class="video-player__overlay" on:click={toggle} src="https://i.ytimg.com/vi/eMKqoYe8meY/maxresdefault.jpg" alt="cover" >
   {/if}
   <div class="volume-bar">
     <AppVolumeBar class="volume-bar__controls" volume={$volume} on:update:volume={handleUpdateVolume} />
@@ -101,9 +72,16 @@
 
   &__overlay {
     grid-area: player;
-    object-fit: contain;
+    object-fit: cover;
     height: 100%;
     width: 100%;
+    cursor: pointer;
+
+    transition: filter .2s ease-out;
+
+    &:hover {
+      filter: saturate(1.5);
+    }
   }
 }
 

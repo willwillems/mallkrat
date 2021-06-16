@@ -36,6 +36,8 @@ $: secondNextVideoUrl = $videoList && $videoList[1] && $videoList[1].thumbnails.
 .next-video {
   @include box-w-2;
   position: relative;
+
+  cursor: pointer;
   
   &--1 {
     grid-area: video-1;
@@ -52,7 +54,7 @@ $: secondNextVideoUrl = $videoList && $videoList[1] && $videoList[1].thumbnails.
     transition: filter ease-in-out .5s;
 
     &:hover {
-      filter: sepia(0) hue-rotate(0deg) grayscale(0) contrast(1);
+      filter: sepia(0) hue-rotate(0deg) grayscale(0.2) contrast(1);
     }
   }
 
