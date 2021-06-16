@@ -15,13 +15,14 @@
   <TheNextUp />
   <TheSubContent />
   <TheFooter />
+  <div class="bar"></div>
 </div>
 
 <style lang="postcss">
 @import '../style/mixins.pcss';
 
 #app {
-  @mixin box-w-2;
+  @include box-w-2;
   margin: 18px 24px;
   max-height: calc(100vh - 36px);
   display: grid;
@@ -65,6 +66,16 @@
     :global(#next) {
       display: none;
     }
+  }
+}
+
+.bar {
+  @include box-w-2;
+  grid-area: bar;
+  display: none;
+
+  @media only screen and (max-width: 600px) {
+    display: block;
   }
 }
 </style>
