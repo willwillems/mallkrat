@@ -33,9 +33,9 @@
     class="video-player"
     bind:player
   />
-  {#if !$hasPlayed}
+  <!-- {#if !$hasPlayed}
   <img class="video-player__overlay" on:click={toggle} src="https://i.ytimg.com/vi/eMKqoYe8meY/maxresdefault.jpg" alt="cover" >
-  {/if}
+  {/if} -->
   <div class="volume-bar">
     <AppVolumeBar class="volume-bar__controls" volume={$volume} on:update:volume={handleUpdateVolume} />
   </div>
