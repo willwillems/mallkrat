@@ -4,6 +4,6 @@
 import { receiveVideos } from "../store/videos"
 
 export async function getVideos () {
-   const { data } = await fetch("http://localhost:3000/api/videos.json").then(r => r.json())
+   const { data } = await fetch("/api/videos.json").then(r => r.json())
    return receiveVideos(data)
 }
