@@ -17,7 +17,7 @@
   grid-area: header;
 
   display: grid;
-  grid-gap: 2px;
+  grid-gap: var(--border-width);
   grid-template-rows: 160px 1fr;
   grid-template-columns: 36px 1fr;
   grid-template-areas:

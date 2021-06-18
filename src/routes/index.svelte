@@ -26,7 +26,7 @@
   margin: 18px 24px;
   max-height: calc(100vh - 36px);
   display: grid;
-  grid-gap: 2px;
+  grid-gap: var(--border-width);
   grid-template-rows: repeat(6, minmax(80px, 1fr)) 36px;
   grid-template-columns: 180px repeat(7, minmax(80px, 1fr));
   grid-template-areas:

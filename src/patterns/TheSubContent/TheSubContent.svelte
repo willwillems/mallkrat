@@ -21,7 +21,7 @@
   grid-area: sub;
 
   display: grid;
-  grid-gap: 2px;
+  grid-gap: var(--border-width);
   grid-template-rows: 1fr 54px;
   grid-template-columns: 180px minmax(360px, 4fr) 5fr auto;
   grid-template-areas:

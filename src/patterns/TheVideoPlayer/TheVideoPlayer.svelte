@@ -52,7 +52,7 @@
   grid-area: video;
 
   display: grid;
-  grid-gap: 2px;
+  grid-gap: var(--border-width);
   grid-template-rows: 1fr 120px;
   grid-template-columns: auto 36px;
   grid-template-areas:
@@ -102,7 +102,7 @@
   grid-area: controls;
 
   display: grid;
-  grid-gap: 2px;
+  grid-gap: var(--border-width);
   grid-template-rows: 1fr 36px;
   grid-template-columns: 1fr 120px;
   grid-template-areas:

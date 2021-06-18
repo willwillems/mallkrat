@@ -2,6 +2,7 @@
   --bg-color: black;
   --txt-color: white;
   --border-color: var(--txt-color);
+  --border-width: 2px;
   --accent-color: #888888;
 }
 

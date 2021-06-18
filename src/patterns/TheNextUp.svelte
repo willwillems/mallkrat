@@ -28,7 +28,7 @@ $: secondNextVideoUrl = $videoList && $videoList[0] && getVideoImg($videoList[0]
   grid-area: next;
 
   display: grid;
-  grid-gap: 2px;
+  grid-gap: var(--border-width);
   grid-template-rows: 6fr 4fr;
   grid-template-columns: 1fr;
   grid-template-areas:
