@@ -3,7 +3,7 @@ import { tweened } from 'svelte/motion';
 import { linear } from 'svelte/easing';
 
 const initialSize = 128
-const duration = 1000
+const duration = 500
 
 const height = tweened(initialSize, {
     duration,
@@ -22,7 +22,7 @@ function join () {
     const calcHeight = appHeight - footerHeight + 2
     const calcWidth = appWidth + 2
 
-    height.set(calcHeight, { duration: (duration * calcHeight / calcWidth)})
+    height.set(calcHeight)
     width.set(calcWidth)
   // alert("no")
 }
