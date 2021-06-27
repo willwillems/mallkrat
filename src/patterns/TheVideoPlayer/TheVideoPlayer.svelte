@@ -4,7 +4,7 @@
 
   import ThePlayButton from './components/ThePlayButton.svelte'
 
-  import { activeVideoId } from '../../store/videos'
+  import { activeVideoId, activeVideoTitle, activeVideoDescription } from '../../store/videos'
 
   import { init, setVolume, toggle } from './player'
   import { volume, hasPlayed } from './state'
@@ -40,6 +40,10 @@
     <AppVolumeBar class="volume-bar__controls" volume={$volume} on:update:volume={handleUpdateVolume} />
   </div>
   <div class="player-controls">
+    <div class="player-controls__data">
+      <h1 class="player-controls__data__title">{$activeVideoTitle}</h1>
+      <p class="player-controls__data__description">{$activeVideoDescription}</p>
+    </div>
     <ThePlayButton class="player-controls__play-button"/>
   </div>
 </div>
@@ -89,7 +93,7 @@
   @include box-w-2;
   grid-area: volume;
 
-  padding: 6px;
+  padding: 17px;
 
   &__controls {
     height: 100%;
@@ -108,6 +112,24 @@
   grid-template-areas:
     "data     button "
     "playback button ";
+
+  &__data {
+    @include box-w-2;
+    grid-area: data;
+
+    padding: .5rem 1.25rem;
+    text-align: left;
+
+    &__title {
+      font-size: 1.25rem;
+      margin: .25em 0 ;
+      text-transform: uppercase;
+    }
+
+    &__description {
+      margin: .25em 0;
+    }
+  }
 
   &__play-button {
     @include box-w-2;

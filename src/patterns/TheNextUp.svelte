@@ -1,5 +1,6 @@
 <script>
 import { getVideoId, getVideoImg } from "$lib/ytdata"
+import { each } from "svelte/internal";
 import { videoList, setActiveVideoId } from "../store/videos"
 
 $: firstNextVideoId   = $videoList && $videoList[0] && getVideoId($videoList[0])
@@ -10,13 +11,13 @@ $: secondNextVideoUrl = $videoList && $videoList[0] && getVideoImg($videoList[1]
 </script>
 
 <div id="next">
-  <div class="next-video next-video--1" on:click={setActiveVideoId(firstNextVideoId)}>
-    <img class="next-video__img" src="{firstNextVideoUrl}" alt="thumbnail of next video 1" />
-    <div class="next-video__overlay"></div>
-  </div>
-  <div class="next-video next-video--2" on:click={setActiveVideoId(secondNextVideoId)}>
-    <img class="next-video__img" src="{secondNextVideoUrl}" alt="thumbnail of next video 2" />
-    <div class="next-video__overlay"></div>
+  <div class="video-scroller">
+    {#each $videoList as video}
+    <div class="next-video" on:click={setActiveVideoId(getVideoId(video))}>
+      <img class="next-video__img" src="{getVideoImg(video)}" alt="thumbnail of next video 1" />
+      <div class="next-video__overlay"></div>
+    </div>
+    {/each}
   </div>
 </div>
 
@@ -27,28 +28,29 @@ $: secondNextVideoUrl = $videoList && $videoList[0] && getVideoImg($videoList[1]
   @include box-w-2;
   grid-area: next;
 
-  display: grid;
-  grid-gap: var(--border-width);
-  grid-template-rows: 6fr 4fr;
-  grid-template-columns: 1fr;
-  grid-template-areas:
-    "video-1"
-    "video-2";
+  position: relative;
+}
+
+.video-scroller {
+  position: absolute;
+  height: 100%;
+  overflow-y: scroll;
+
+  scroll-snap-type: y mandatory;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .next-video {
   @include box-w-2;
   position: relative;
+  height: 50%;
 
   cursor: pointer;
+  scroll-snap-align: start;
   
-  &--1 {
-    grid-area: video-1;
-  }
-
-  &--2 {
-    grid-area: video-2;
-  }
 
   &__img {
     @include full-cover;

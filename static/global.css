@@ -6,13 +6,23 @@
   --accent-color: #888888;
 }
 
+@font-face {
+  font-family: 'DotGothic16';
+  src: url('/font/DotGothic16-Regular.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'VCR OSD Mono';
+  src: url('/font/VCR_OSD_Mono-Bold.ttf')  format('truetype');
+}
+
 html, body {
   background-color: var(--bg-color);
   color: var(--txt-color);
   padding: 0;
   margin: 0;
   font-size: 16px;
-  font-family: 'Arial', Helvetica, Arial, sans-serif;
+  font-family: 'DotGothic16', monospace;
   letter-spacing: 1px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -25,8 +35,8 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Arial Black', Arial, sans-serif;
-  text-align: center;
+  font-family: 'VCR OSD Mono', sans-serif;
+  text-align: inherit;
 }
 
 button {

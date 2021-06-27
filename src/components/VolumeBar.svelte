@@ -39,6 +39,7 @@
   width: 100%;
   overflow: hidden;
   background-color: var(--border-color);
+  /* border: var(--border-width) solid var(--border-color); */
   pointer-events: none;
 }
 </style>
