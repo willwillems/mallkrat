@@ -89,7 +89,7 @@
   @include box-w-2;
   grid-area: volume;
 
-  padding: 4px;
+  padding: 6px;
 
   &__controls {
     height: 100%;

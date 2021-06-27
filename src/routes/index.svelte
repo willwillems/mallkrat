@@ -52,10 +52,10 @@ export async function load({ page, fetch, session, context }) {
 #app {
   @include box-w-2;
   margin: 18px 24px;
-  max-height: calc(100vh - 36px);
+  min-height: calc(100vh - 36px);
   display: grid;
   grid-gap: var(--border-width);
-  grid-template-rows: repeat(6, minmax(80px, 1fr)) 36px;
+  grid-template-rows: repeat(5, minmax(80px, 1fr)) 126px 36px;
   grid-template-columns: 180px repeat(7, minmax(80px, 1fr));
   grid-template-areas:
     "header video  video  video  video  video  next   next   "
@@ -68,7 +68,6 @@ export async function load({ page, fetch, session, context }) {
 
 
   @media only screen and (max-width: 600px) {
-    max-height: unset;
     grid-template-rows: 100px 360px 180px 240px 36px;
     grid-template-columns: 36px repeat(4, minmax(80px, 1fr)) 36px;
     grid-template-areas:
@@ -80,7 +79,7 @@ export async function load({ page, fetch, session, context }) {
   }
 
   @media only screen and (min-width: 600px) and (max-width: 800px) {
-    grid-template-rows: repeat(6, minmax(80px, 1fr)) 36px;
+    grid-template-rows: repeat(5, minmax(80px, 1fr)) 126px 36px;
     grid-template-columns: 180px repeat(5, minmax(80px, 1fr));
     grid-template-areas:
       "header video  video  video  video  video "
