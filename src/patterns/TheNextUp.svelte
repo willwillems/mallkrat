@@ -4,8 +4,8 @@ import { videoList, setActiveVideoId } from "../store/videos"
 
 $: firstNextVideoId   = $videoList && $videoList[0] && getVideoId($videoList[0])
 $: firstNextVideoUrl  = $videoList && $videoList[0] && getVideoImg($videoList[0])
-$: secondNextVideoId  = $videoList && $videoList[0] && getVideoId($videoList[0])
-$: secondNextVideoUrl = $videoList && $videoList[0] && getVideoImg($videoList[0])
+$: secondNextVideoId  = $videoList && $videoList[0] && getVideoId($videoList[1])
+$: secondNextVideoUrl = $videoList && $videoList[0] && getVideoImg($videoList[1])
 
 </script>
 
@@ -57,7 +57,7 @@ $: secondNextVideoUrl = $videoList && $videoList[0] && getVideoImg($videoList[0]
     transition: filter ease-in-out .5s;
 
     &:hover {
-      filter: sepia(0) hue-rotate(0deg) grayscale(0.2) contrast(1);
+      filter: sepia(1) hue-rotate(-200deg) grayscale(0.2) contrast(1);
     }
   }
 
