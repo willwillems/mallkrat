@@ -1,5 +1,33 @@
+<script context="module">
+/**
+ * @type {import('@sveltejs/kit').Load}
+ */
+export async function load({ page, fetch, session, context }) {
+  const url = `/api/videos.json`;
+  const res = await fetch(url);
+
+  if (res.ok) {
+    return {
+      props: {
+        videos: await res.json()
+      }
+    };
+  }
+
+  return {
+    status: res.status,
+    error: new Error(`Could not load ${url}`)
+  };
+}
+</script>
+
 <script>
+  import { receiveVideos } from "../store/videos"
   import "normalize.css"
+
+  export let videos;
+
+  $: receiveVideos(videos)
 
   import TheHeader from '../patterns/TheHeader.svelte'
   import TheFooter from '../patterns/TheFooter.svelte'
